@@ -3,7 +3,10 @@ import express from "express";
 import session from "express-session";
 import connectMongo from "connect-mongo";
 import cors from "cors";
+import passport from "./config/passport.js";
+import routes from "./routes/index.js";
 import "./config/db.js";
+
 const app = express();
 dotenv.config();
 
@@ -33,9 +36,9 @@ app.use(
 );
 
 
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.get("/health", (req, res) => {
-  res.json({ status: "OK" });
-});
+app.use("/api", routes);
 
 export default app;
