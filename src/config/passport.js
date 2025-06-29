@@ -1,8 +1,12 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import { Strategy as GitHubStrategy } from "passport-github2";
 import bcrypt from "bcrypt";
 import User from "../models/user.js";
+import { findOrCreateOAuthUser } from "../controllers/oauthController.js";
 
+// Local Strategy
 passport.use(
   new LocalStrategy(
     { usernameField: "email" },
@@ -11,12 +15,50 @@ passport.use(
         const user = await User.findOne({ email }).select("+passwordHash");
         if (!user)
           return done(null, false, { message: "Invalid email or password" });
-        const valid = bcrypt.compare(password, user.passwordHash);
+        const valid = await bcrypt.compare(password, user.passwordHash);
         if (!valid)
           return done(null, false, { message: "Invalid email or password" });
         return done(null, user);
       } catch (err) {
         return done(err);
+      }
+    }
+  )
+);
+
+// Google OAuth Strategy
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "/auth/google/callback",
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        const user = await findOrCreateOAuthUser(profile, "google");
+        return done(null, user);
+      } catch (error) {
+        return done(error, null);
+      }
+    }
+  )
+);
+
+// GitHub OAuth Strategy
+passport.use(
+  new GitHubStrategy(
+    {
+      clientID: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      callbackURL: "/auth/github/callback",
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        const user = await findOrCreateOAuthUser(profile, "github");
+        return done(null, user);
+      } catch (error) {
+        return done(error, null);
       }
     }
   )
