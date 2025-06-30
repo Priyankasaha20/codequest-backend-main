@@ -34,8 +34,10 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      // full callback URL must match GitHub/Google app settings
-      callbackURL: process.env.GOOGLE_CALLBACK_URL || "/auth/google/callback",
+      // Dynamic callback URL: BASE_URL + path
+      callbackURL: `${
+        process.env.BASE_URL || "http://localhost:5000"
+      }/api/auth/google/callback`,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
@@ -54,8 +56,10 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      // full callback URL must match GitHub/Google app settings
-      callbackURL: process.env.GITHUB_CALLBACK_URL || "/auth/github/callback",
+      // Dynamic callback URL: BASE_URL + path
+      callbackURL: `${
+        process.env.BASE_URL || "http://localhost:5000"
+      }/api/auth/github/callback`,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {

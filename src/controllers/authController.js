@@ -9,26 +9,22 @@ import {
   sanitizeUser,
 } from "../services/authService.js";
 
-// Register a new user
 export const register = async (req, res) => {
   try {
     const { email, password, name } = req.body;
 
-    // Validate input
     if (!email || !password) {
       return res.status(400).json({
         error: "Email and password are required",
       });
     }
 
-    // Validate email format
     if (!isValidEmail(email)) {
       return res.status(400).json({
         error: "Invalid email format",
       });
     }
 
-    // Validate password strength
     const passwordValidation = validatePassword(password);
     if (!passwordValidation.isValid) {
       return res.status(400).json({
@@ -37,7 +33,6 @@ export const register = async (req, res) => {
       });
     }
 
-    // Check if user already exists
     const userExists = await userExistsByEmail(email);
     if (userExists) {
       return res.status(409).json({
@@ -45,14 +40,12 @@ export const register = async (req, res) => {
       });
     }
 
-    // Hash password
     const passwordHash = await hashPassword(password);
 
-    // Create new user
     const newUser = new User({
       email,
       passwordHash,
-      name: name || email.split("@")[0], // Use email prefix as default name
+      name: name || email.split("@")[0],
     });
 
     await newUser.save();
@@ -99,7 +92,6 @@ export const login = (req, res, next) => {
         });
       }
 
-      // Return user data without password
       return res.json({
         message: "Login successful",
         user: sanitizeUser(user),
@@ -108,7 +100,7 @@ export const login = (req, res, next) => {
   })(req, res, next);
 };
 
-// Logout user
+
 export const logout = (req, res) => {
   req.logout((err) => {
     if (err) {
@@ -124,7 +116,7 @@ export const logout = (req, res) => {
         });
       }
 
-      res.clearCookie("connect.sid"); // Clear session cookie
+      res.clearCookie("connect.sid");
       return res.json({
         message: "Logout successful",
       });
