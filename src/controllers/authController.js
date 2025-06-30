@@ -57,7 +57,6 @@ export const register = async (req, res) => {
 
     await newUser.save();
 
-    // Log the user in automatically after registration
     req.login(newUser, (err) => {
       if (err) {
         return res.status(500).json({
@@ -65,7 +64,6 @@ export const register = async (req, res) => {
         });
       }
 
-      // Return user data without password
       return res.status(201).json({
         message: "User registered successfully",
         user: sanitizeUser(newUser),
