@@ -10,7 +10,13 @@ import "./config/db.js";
 const app = express();
 dotenv.config();
 
-app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 const mongostore = connectMongo.create({
@@ -29,12 +35,15 @@ app.use(
       maxAge: 24 * 60 * 60 * 1000,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      domain: process.env.COOKIE_DOMAIN,
+      ...(process.env.NODE_ENV === "production"
+        ? {
+            sameSite: "lax",
+            domain: process.env.COOKIE_DOMAIN,
+          }
+        : {}),
     },
   })
 );
-
 
 app.use(passport.initialize());
 app.use(passport.session());
