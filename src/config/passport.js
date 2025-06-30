@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
@@ -32,7 +34,8 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/auth/google/callback",
+      // full callback URL must match GitHub/Google app settings
+      callbackURL: process.env.GOOGLE_CALLBACK_URL || "/auth/google/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
@@ -51,7 +54,8 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: "/auth/github/callback",
+      // full callback URL must match GitHub/Google app settings
+      callbackURL: process.env.GITHUB_CALLBACK_URL || "/auth/github/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
       try {

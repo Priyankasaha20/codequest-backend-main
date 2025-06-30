@@ -26,6 +26,4 @@ const UserSchema = new Schema(
 );
 
 
-UserSchema.index({ email: 1 }, { unique: true });
-
 export default model("User", UserSchema);
