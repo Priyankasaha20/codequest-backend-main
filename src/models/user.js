@@ -18,7 +18,6 @@ const UserSchema = new Schema(
       select: false,
     },
     name: String,
-    avatarUrl: String,
   },
   {
     timestamps: true,

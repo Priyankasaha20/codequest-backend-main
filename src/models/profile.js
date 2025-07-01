@@ -33,6 +33,10 @@ const ProfileSchema = new Schema(
       trim: true,
       default: "",
     },
+    profilePic: {
+      type: String,
+      trim: true,
+    },
   },
   { timestamps: true }
 );
