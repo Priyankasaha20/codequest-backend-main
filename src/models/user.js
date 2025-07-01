@@ -25,5 +25,12 @@ const UserSchema = new Schema(
   }
 );
 
+// add a profile reference for one-to-one relationship
+UserSchema.add({
+  profile: {
+    type: Schema.Types.ObjectId,
+    ref: "Profile",
+  },
+});
 
 export default model("User", UserSchema);
