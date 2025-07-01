@@ -11,6 +11,29 @@ services:
       MONGO_INITDB_DATABASE: codequest
       MONGO_INITDB_ROOT_USERNAME: your_root_username
       MONGO_INITDB_ROOT_PASSWORD: your_root_password
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  minio:
+    image: minio/minio:latest
+    container_name: codequest-minio
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio-data:/data
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+
+  # app service removed per request
 
 volumes:
   mongo-data:
+  minio-data:

@@ -18,12 +18,18 @@ const UserSchema = new Schema(
       select: false,
     },
     name: String,
-    avatarUrl: String,
   },
   {
     timestamps: true,
   }
 );
 
+// add a profile reference for one-to-one relationship
+UserSchema.add({
+  profile: {
+    type: Schema.Types.ObjectId,
+    ref: "Profile",
+  },
+});
 
 export default model("User", UserSchema);
