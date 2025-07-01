@@ -6,6 +6,9 @@ import cors from "cors";
 import passport from "./config/passport.js";
 import routes from "./routes/index.js";
 import "./config/db.js";
+import aiStatsRoutes from "./routes/aiStats.js";
+import interviewTypesRoutes from "./routes/interviewTypes.js";
+import sessionsRoutes from "./routes/sessions.js";
 
 const app = express();
 dotenv.config();
@@ -49,5 +52,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/api", routes);
+app.use("/api/coach/stats", aiStatsRoutes);
+app.use("/api/coach/interview-types", interviewTypesRoutes);
+app.use("/api/coach/sessions", sessionsRoutes);
 
 export default app;
