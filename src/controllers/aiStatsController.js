@@ -2,7 +2,18 @@ import Session from "../models/Session.js";
 
 export async function getStats(req, res, next) {
   try {
-    const userId = req.user._id;
+    const { userId } = req.query;
+
+    // If no userId provided, return empty stats
+    if (!userId) {
+      return res.json({
+        totalSessions: 0,
+        avgScore: 0,
+        practiceTime: "0h",
+        skillsImproved: 0,
+      });
+    }
+
     const totalSessions = await Session.countDocuments({ user: userId });
     const sessions = await Session.find({ user: userId, status: "completed" });
 

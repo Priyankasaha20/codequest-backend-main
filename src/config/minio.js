@@ -16,6 +16,9 @@ const bucketName = process.env.MINIO_BUCKET_NAME || "codequest-files";
 // Ensure bucket exists
 (async () => {
   try {
+    // Add a small delay to allow MinIO container to fully start
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     const exists = await minioClient.bucketExists(bucketName);
     if (!exists) {
       await minioClient.makeBucket(bucketName, "");
@@ -24,7 +27,10 @@ const bucketName = process.env.MINIO_BUCKET_NAME || "codequest-files";
       console.log(`✅  MinIO bucket "${bucketName}" exists.`);
     }
   } catch (err) {
-    console.error("❌  Error ensuring MinIO bucket:", err);
+    console.error("❌  Error ensuring MinIO bucket:", err.message);
+    console.log(
+      "🔄  MinIO will be available once the container is properly synced."
+    );
   }
 })();
 

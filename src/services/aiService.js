@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import InterviewType from "../models/InterviewType.js";
 const openai = new OpenAI();
 
 export default {
@@ -13,8 +14,27 @@ export default {
   },
 
   async getNextQuestion(typeId) {
-    // stubbed: replace with real bank or LLM prompt
-    return `What is your approach to the next ${typeId} problem?`;
+    try {
+      // Get the interview type with all questions
+      const interviewType = await InterviewType.findById(typeId).exec();
+
+      if (
+        !interviewType ||
+        !interviewType.questions ||
+        interviewType.questions.length === 0
+      ) {
+        return "Thank you for your responses. The interview is now complete.";
+      }
+
+      // Return a random question from the available questions
+      const randomIndex = Math.floor(
+        Math.random() * interviewType.questions.length
+      );
+      return interviewType.questions[randomIndex];
+    } catch (error) {
+      console.error("Error fetching next question:", error);
+      return "Could not fetch the next question. Please try again.";
+    }
   },
 };
 

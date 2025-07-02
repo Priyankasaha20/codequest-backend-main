@@ -15,8 +15,8 @@ dotenv.config();
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: ["http://localhost:3000", "http://localhost:5000", process.env.FRONTEND_URL],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
 );
