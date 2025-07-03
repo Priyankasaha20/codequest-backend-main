@@ -8,13 +8,18 @@ export const getProfile = async (req, res) => {
     if (!profile) {
       profile = await Profile.create({ user: req.user.id });
     }
-    res.json(profile);
+
+    const result = {
+      ...profile.toObject(),
+      email: req.user.email,
+      name: req.user.name,
+    };
+    res.json(result);
   } catch (err) {
     console.error("getProfile error:", err);
     res.status(500).json({ error: "Server error" });
   }
 };
-
 
 export const updateProfile = async (req, res) => {
   const { bio, location, academicYear, institute, phoneNumber } = req.body;
@@ -24,7 +29,12 @@ export const updateProfile = async (req, res) => {
       { bio, location, academicYear, institute, phoneNumber },
       { new: true, upsert: true }
     );
-    res.json(updated);
+    const result = {
+      ...updated.toObject(),
+      email: req.user.email,
+      name: req.user.name,
+    };
+    res.json(result);
   } catch (err) {
     console.error("updateProfile error:", err);
     res.status(500).json({ error: "Server error" });
@@ -52,7 +62,13 @@ export const uploadProfilePicture = async (req, res) => {
       { profilePic: publicUrl },
       { new: true, upsert: true }
     );
-    res.json(profile);
+    
+    const result = {
+      ...profile.toObject(),
+      email: req.user.email,
+      name: req.user.name,
+    };
+    res.json(result);
   } catch (err) {
     console.error("uploadProfilePicture error:", err);
     res.status(500).json({ error: "Upload failed" });
