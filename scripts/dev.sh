@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-if [ -z "$(docker ps -q -f name=codequest-mongo)" ]; then
-  echo "Starting MongoDB..."
+# MongoDB
+all="$(docker ps -a -q -f name=codequest-mongo)"
+running="$(docker ps -q -f name=codequest-mongo)"
+if [ -z "$all" ]; then
+  echo "Creating and starting MongoDB container..."
   docker run -d \
     --name codequest-mongo \
     -p 27017:27017 \
@@ -10,13 +13,19 @@ if [ -z "$(docker ps -q -f name=codequest-mongo)" ]; then
     -e MONGO_INITDB_ROOT_PASSWORD=your_root_password \
     -v codequest-mongo-data:/data/db \
     mongo:latest
+elif [ -z "$running" ]; then
+  echo "Starting stopped MongoDB container..."
+  docker start codequest-mongo
 else
   echo "MongoDB container already running"
 fi
 
 
-if [ -z "$(docker ps -q -f name=codequest-minio)" ]; then
-  echo "Starting MinIO..."
+# MinIO
+all="$(docker ps -a -q -f name=codequest-minio)"
+running="$(docker ps -q -f name=codequest-minio)"
+if [ -z "$all" ]; then
+  echo "Creating and starting MinIO container..."
   docker run -d \
     --name codequest-minio \
     -p 9000:9000 \
@@ -26,6 +35,9 @@ if [ -z "$(docker ps -q -f name=codequest-minio)" ]; then
     -v codequest-minio-data:/data \
     minio/minio:latest \
     server /data --console-address ":9001"
+elif [ -z "$running" ]; then
+  echo "Starting stopped MinIO container..."
+  docker start codequest-minio
 else
   echo "MinIO container already running"
 fi
