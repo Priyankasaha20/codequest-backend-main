@@ -1,5 +1,6 @@
 import path from "path";
 import Profile from "../models/profile.js";
+import User from "../models/user.js";
 import { minioClient, bucketName } from "../config/minio.js";
 
 export const getProfile = async (req, res) => {
@@ -21,14 +22,30 @@ export const getProfile = async (req, res) => {
   }
 };
 
+// Update profile details
 export const updateProfile = async (req, res) => {
-  const { bio, location, academicYear, institute, phoneNumber } = req.body;
+  const {
+    bio,
+    location,
+    academicYear,
+    institute,
+    phoneNumber,
+    private: isPrivate,
+  } = req.body;
   try {
     const updated = await Profile.findOneAndUpdate(
       { user: req.user.id },
-      { bio, location, academicYear, institute, phoneNumber },
+      {
+        bio,
+        location,
+        academicYear,
+        institute,
+        phoneNumber,
+        private: isPrivate,
+      },
       { new: true, upsert: true }
     );
+    // Include user email and name in response
     const result = {
       ...updated.toObject(),
       email: req.user.email,
@@ -62,7 +79,7 @@ export const uploadProfilePicture = async (req, res) => {
       { profilePic: publicUrl },
       { new: true, upsert: true }
     );
-    
+
     const result = {
       ...profile.toObject(),
       email: req.user.email,
@@ -72,5 +89,66 @@ export const uploadProfilePicture = async (req, res) => {
   } catch (err) {
     console.error("uploadProfilePicture error:", err);
     res.status(500).json({ error: "Upload failed" });
+  }
+};
+
+export const uploadResume = async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: "No file uploaded" });
+  }
+
+  if (req.file.mimetype !== "application/pdf") {
+    return res.status(400).json({ error: "Only PDF files are allowed" });
+  }
+  const userId = req.user.id;
+  const ext = path.extname(req.file.originalname);
+  const objectName = `resumes/${userId}/${Date.now()}${ext}`;
+  try {
+    await minioClient.putObject(
+      bucketName,
+      objectName,
+      req.file.buffer,
+      req.file.size
+    );
+    const protocol = process.env.MINIO_USE_SSL === "true" ? "https" : "http";
+    const host = process.env.MINIO_ENDPOINT || "localhost";
+    const port = process.env.MINIO_PORT || "9000";
+    const publicUrl = `${protocol}://${host}:${port}/${bucketName}/${objectName}`;
+    const profile = await Profile.findOneAndUpdate(
+      { user: userId },
+      { resumeUrl: publicUrl },
+      { new: true, upsert: true }
+    );
+
+    const result = {
+      ...profile.toObject(),
+      email: req.user.email,
+      name: req.user.name,
+    };
+    res.json(result);
+  } catch (err) {
+    console.error("uploadResume error:", err);
+    res.status(500).json({ error: "Resume upload failed" });
+  }
+};
+
+export const getPublicProfile = async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.params.userId });
+    const user = await User.findById(req.params.userId);
+
+    if (!profile || !user) {
+      return res.status(404).json({ error: "Profile not found" });
+    }
+
+    const result = {
+      ...profile.toObject(),
+      email: user.email,
+      name: user.name,
+    };
+    res.json(result);
+  } catch (err) {
+    console.error("getPublicProfile error:", err);
+    res.status(500).json({ error: "Server error" });
   }
 };

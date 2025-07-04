@@ -5,10 +5,12 @@ import {
   getProfile,
   updateProfile,
   uploadProfilePicture,
+  uploadResume,
+  getPublicProfile,
 } from "../controllers/profileController.js";
+import { checkProfileAccess } from "../middleware/profileAccess.js";
 
 const router = express.Router();
-
 
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -18,5 +20,9 @@ const upload = multer({
 router.get("/", isAuth, getProfile);
 router.put("/", isAuth, updateProfile);
 router.post("/picture", isAuth, upload.single("picture"), uploadProfilePicture);
+router.post("/resume", isAuth, upload.single("resume"), uploadResume);
+
+// Public profile routes (with privacy check)
+router.get("/:userId", checkProfileAccess, getPublicProfile);
 
 export default router;

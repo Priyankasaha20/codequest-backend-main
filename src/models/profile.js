@@ -37,6 +37,14 @@ const ProfileSchema = new Schema(
       type: String,
       trim: true,
     },
+    resumeUrl: {
+      type: String,
+      trim: true,
+    },
+    private: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
