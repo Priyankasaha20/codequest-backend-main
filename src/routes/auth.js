@@ -5,6 +5,7 @@ import {
   login,
   logout,
   getCurrentUser,
+  verifyEmail,
 } from "../controllers/authController.js";
 import { oauthSuccess, oauthFailure } from "../controllers/oauthController.js";
 import { isAuth } from "../middleware/auth.js";
@@ -16,6 +17,7 @@ router.post("/register", register);
 router.post("/login", login);
 router.post("/logout", logout);
 router.get("/me", isAuth, getCurrentUser);
+router.get("/verify", verifyEmail);
 
 // Google OAuth routes
 router.get(
