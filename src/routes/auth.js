@@ -12,14 +12,13 @@ import { isAuth } from "../middleware/auth.js";
 
 const router = express.Router();
 
-// Regular authentication routes
 router.post("/register", register);
 router.post("/login", login);
 router.post("/logout", logout);
 router.get("/me", isAuth, getCurrentUser);
 router.get("/verify", verifyEmail);
 
-// Google OAuth routes
+
 router.get(
   "/google",
   passport.authenticate("google", {
@@ -35,7 +34,7 @@ router.get(
   oauthSuccess
 );
 
-// GitHub OAuth routes
+
 router.get(
   "/github",
   passport.authenticate("github", {
@@ -51,7 +50,7 @@ router.get(
   oauthSuccess
 );
 
-// OAuth callback routes
+
 router.get("/success", oauthSuccess);
 router.get("/failure", oauthFailure);
 

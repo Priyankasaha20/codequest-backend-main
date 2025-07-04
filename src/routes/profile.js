@@ -21,8 +21,6 @@ router.get("/", isAuth, getProfile);
 router.put("/", isAuth, updateProfile);
 router.post("/picture", isAuth, upload.single("picture"), uploadProfilePicture);
 router.post("/resume", isAuth, upload.single("resume"), uploadResume);
-
-// Public profile routes (with privacy check)
 router.get("/:userId", checkProfileAccess, getPublicProfile);
 
 export default router;
