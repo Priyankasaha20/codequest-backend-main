@@ -5,8 +5,13 @@ import {
   completeSession,
   getUserSessions,
 } from "../controllers/sessionsController.js";
+import multer from "multer";
 
 const router = Router();
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 10 * 1024 * 1024 },
+});
 
 // Get user sessions
 router.get("/", getUserSessions);
@@ -15,7 +20,7 @@ router.get("/", getUserSessions);
 router.post("/", startSession);
 
 // Submit answer to question
-router.post("/:id/answer", submitAnswer);
+router.post("/:id/answer", upload.single("audio"), submitAnswer);
 
 // Complete session
 router.post("/:id/complete", completeSession);
