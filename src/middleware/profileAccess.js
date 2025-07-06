@@ -1,3 +1,5 @@
+import Profile from "../models/profile.js";
+
 export const checkProfileAccess = async (req, res, next) => {
   try {
     const profileUserId = req.params.userId || req.params.id;
@@ -6,7 +8,6 @@ export const checkProfileAccess = async (req, res, next) => {
       return res.status(400).json({ error: "User ID required" });
     }
 
-    const Profile = (await import("../models/profile.js")).default;
     const profile = await Profile.findOne({ user: profileUserId });
 
     if (!profile) {
