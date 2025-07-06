@@ -1,5 +1,7 @@
 import bcrypt from "bcrypt";
-import User from "../models/user.js";
+import { db } from "../config/dbPostgres.js";
+import { users } from "../models/postgres/schema.js";
+import { eq } from "drizzle-orm";
 
 /**
  * Validates email format
@@ -69,7 +71,7 @@ export const comparePassword = async (password, hash) => {
  * @returns {Promise<boolean>}
  */
 export const userExistsByEmail = async (email) => {
-  const user = await User.findOne({ email });
+  const [user] = await db.select().from(users).where(eq(users.email, email));
   return !!user;
 };
 
@@ -79,7 +81,6 @@ export const userExistsByEmail = async (email) => {
  * @returns {object}
  */
 export const sanitizeUser = (user) => {
-  const userObj = user.toObject ? user.toObject() : user;
-  const { passwordHash, ...sanitizedUser } = userObj;
+  const { passwordHash, ...sanitizedUser } = user;
   return sanitizedUser;
 };

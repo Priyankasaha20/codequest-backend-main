@@ -1,6 +1,8 @@
 import bcrypt from "bcrypt";
 import passport from "../config/passport.js";
-import User from "../models/user.js";
+import { db } from "../config/dbPostgres.js";
+import { users, verificationTokens } from "../models/postgres/schema.js";
+import { eq, and, lt } from "drizzle-orm";
 import {
   isValidEmail,
   validatePassword,
@@ -9,7 +11,6 @@ import {
   sanitizeUser,
 } from "../services/authService.js";
 import { sendVerificationEmail } from "../services/emailService.js";
-import VerificationToken from "../models/verificationToken.js";
 
 export const register = async (req, res) => {
   try {
@@ -44,13 +45,15 @@ export const register = async (req, res) => {
 
     const passwordHash = await hashPassword(password);
 
-    const newUser = new User({
-      email,
-      passwordHash,
-      name: name || email.split("@")[0],
-    });
-
-    await newUser.save();
+    // Create user with Drizzle ORM
+    const [newUser] = await db
+      .insert(users)
+      .values({
+        email,
+        passwordHash,
+        name: name || email.split("@")[0],
+      })
+      .returning();
 
     // send verification email
     await sendVerificationEmail(newUser);
@@ -75,21 +78,46 @@ export const register = async (req, res) => {
   }
 };
 
-
 export const verifyEmail = async (req, res) => {
   try {
     const token = req.query.token;
-    const record = await VerificationToken.findOne({ token });
-    if (!record || record.expiresAt < new Date()) {
+
+    // Find verification token with Drizzle ORM
+    const [record] = await db
+      .select()
+      .from(verificationTokens)
+      .where(
+        and(
+          eq(verificationTokens.token, token),
+          lt(new Date(), verificationTokens.expiresAt)
+        )
+      );
+
+    if (!record) {
       return res.status(400).json({ error: "Invalid or expired token" });
     }
-    const user = await User.findById(record.user);
+
+    // Find and update user
+    const [user] = await db
+      .select()
+      .from(users)
+      .where(eq(users.id, record.userId));
+
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    user.emailVerified = true;
-    await user.save();
-    await VerificationToken.deleteOne({ _id: record._id });
+
+    // Update user email verification status
+    await db
+      .update(users)
+      .set({ emailVerified: true })
+      .where(eq(users.id, record.userId));
+
+    // Delete verification token
+    await db
+      .delete(verificationTokens)
+      .where(eq(verificationTokens.id, record.id));
+
     return res.json({ message: "Email verified successfully" });
   } catch (err) {
     console.error("Email verification error:", err);

@@ -1,7 +1,8 @@
 import dotenv from "dotenv";
 import { Resend } from "resend";
 import crypto from "crypto";
-import VerificationToken from "../models/verificationToken.js";
+import { db } from "../config/dbPostgres.js";
+import { verificationTokens } from "../models/postgres/schema.js";
 
 dotenv.config();
 
@@ -14,7 +15,11 @@ export async function sendVerificationEmail(user) {
       process.env.VERIFICATION_TOKEN_EXPIRATION_HOURS * 60 * 60 * 1000
   );
 
-  await VerificationToken.create({ user: user._id, token, expiresAt });
+  await db.insert(verificationTokens).values({
+    userId: user.id,
+    token,
+    expiresAt,
+  });
 
   const url = `${process.env.BASE_URL}/api/auth/verify?token=${token}`;
   await resend.emails.send({

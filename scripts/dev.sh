@@ -46,6 +46,27 @@ echo "Containers launched."
 echo "MongoDB available at mongodb://localhost:27017"
 echo "MinIO console available at http://localhost:9001 and API at http://localhost:9000"
 
+# PostgreSQL
+all_psql="$(docker ps -a -q -f name=codequest-postgres)"
+running_psql="$(docker ps -q -f name=codequest-postgres)"
+if [ -z "$all_psql" ]; then
+  echo "Creating and starting PostgreSQL container..."
+  docker run -d \
+    --name codequest-postgres \
+    -p 5432:5432 \
+    -e POSTGRES_USER=your_pg_user \
+    -e POSTGRES_PASSWORD=your_pg_password \
+    -e POSTGRES_DB=codequest \
+    -v codequest-postgres-data:/var/lib/postgresql/data \
+    postgres:14
+elif [ -z "$running_psql" ]; then
+  echo "Starting stopped PostgreSQL container..."
+  docker start codequest-postgres
+else
+  echo "PostgreSQL container already running"
+fi
+echo "PostgreSQL available at postgresql://your_pg_user:your_pg_password@localhost:5432/codequest"
+
 # Start development server from project root
 cd "$(dirname "$0")/.."
 echo "Starting development server..."

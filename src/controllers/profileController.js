@@ -1,17 +1,25 @@
 import path from "path";
-import Profile from "../models/profile.js";
-import User from "../models/user.js";
+import { db } from "../config/dbPostgres.js";
+import { profiles, users } from "../models/postgres/schema.js";
+import { eq } from "drizzle-orm";
 import { minioClient, bucketName } from "../config/minio.js";
 
 export const getProfile = async (req, res) => {
   try {
-    let profile = await Profile.findOne({ user: req.user.id });
+    let [profile] = await db
+      .select()
+      .from(profiles)
+      .where(eq(profiles.userId, req.user.id));
+
     if (!profile) {
-      profile = await Profile.create({ user: req.user.id });
+      [profile] = await db
+        .insert(profiles)
+        .values({ userId: req.user.id })
+        .returning();
     }
 
     const result = {
-      ...profile.toObject(),
+      ...profile,
       email: req.user.email,
       name: req.user.name,
     };
@@ -26,30 +34,49 @@ export const getProfile = async (req, res) => {
 export const updateProfile = async (req, res) => {
   console.log(req.body);
 
-  const {
-    bio,
-    location,
-    academicYear,
-    institute,
-    phoneNumber,
-     isPrivate,
-  } = req.body;
+  const { bio, location, academicYear, institute, phoneNumber, isPrivate } =
+    req.body;
   try {
-    const updated = await Profile.findOneAndUpdate(
-      { user: req.user.id },
-      {
+    const [updated] = await db
+      .update(profiles)
+      .set({
         bio,
         location,
         academicYear,
         institute,
         phoneNumber,
         private: isPrivate,
-      },
-      { new: true, upsert: true }
-    );
+        updatedAt: new Date(),
+      })
+      .where(eq(profiles.userId, req.user.id))
+      .returning();
+
+    if (!updated) {
+      // Create profile if it doesn't exist
+      const [created] = await db
+        .insert(profiles)
+        .values({
+          userId: req.user.id,
+          bio,
+          location,
+          academicYear,
+          institute,
+          phoneNumber,
+          private: isPrivate,
+        })
+        .returning();
+
+      const result = {
+        ...created,
+        email: req.user.email,
+        name: req.user.name,
+      };
+      return res.json(result);
+    }
+
     // Include user email and name in response
     const result = {
-      ...updated.toObject(),
+      ...updated,
       email: req.user.email,
       name: req.user.name,
     };
@@ -74,14 +101,29 @@ export const uploadProfilePicture = async (req, res) => {
     );
     // Store the file path for use with media route
     const mediaPath = `/${objectName}`;
-    const profile = await Profile.findOneAndUpdate(
-      { user: userId },
-      { profilePic: mediaPath },
-      { new: true, upsert: true }
-    );
+
+    let [profile] = await db
+      .update(profiles)
+      .set({
+        profilePic: mediaPath,
+        updatedAt: new Date(),
+      })
+      .where(eq(profiles.userId, userId))
+      .returning();
+
+    if (!profile) {
+      // Create profile if it doesn't exist
+      [profile] = await db
+        .insert(profiles)
+        .values({
+          userId: userId,
+          profilePic: mediaPath,
+        })
+        .returning();
+    }
 
     const result = {
-      ...profile.toObject(),
+      ...profile,
       email: req.user.email,
       name: req.user.name,
     };
@@ -112,14 +154,29 @@ export const uploadResume = async (req, res) => {
     );
     // Store the file path for use with media route
     const mediaPath = `/${objectName}`;
-    const profile = await Profile.findOneAndUpdate(
-      { user: userId },
-      { resumeUrl: mediaPath },
-      { new: true, upsert: true }
-    );
+
+    let [profile] = await db
+      .update(profiles)
+      .set({
+        resumeUrl: mediaPath,
+        updatedAt: new Date(),
+      })
+      .where(eq(profiles.userId, userId))
+      .returning();
+
+    if (!profile) {
+      // Create profile if it doesn't exist
+      [profile] = await db
+        .insert(profiles)
+        .values({
+          userId: userId,
+          resumeUrl: mediaPath,
+        })
+        .returning();
+    }
 
     const result = {
-      ...profile.toObject(),
+      ...profile,
       email: req.user.email,
       name: req.user.name,
     };
@@ -132,15 +189,22 @@ export const uploadResume = async (req, res) => {
 
 export const getPublicProfile = async (req, res) => {
   try {
-    const profile = await Profile.findOne({ user: req.params.userId });
-    const user = await User.findById(req.params.userId);
+    const [profile] = await db
+      .select()
+      .from(profiles)
+      .where(eq(profiles.userId, parseInt(req.params.userId)));
+
+    const [user] = await db
+      .select()
+      .from(users)
+      .where(eq(users.id, parseInt(req.params.userId)));
 
     if (!profile || !user) {
       return res.status(404).json({ error: "Profile not found" });
     }
 
     const result = {
-      ...profile.toObject(),
+      ...profile,
       email: user.email,
       name: user.name,
     };
