@@ -1,4 +1,3 @@
-// Middleware to check profile privacy
 export const checkProfileAccess = async (req, res, next) => {
   try {
     const profileUserId = req.params.userId || req.params.id;
@@ -7,7 +6,6 @@ export const checkProfileAccess = async (req, res, next) => {
       return res.status(400).json({ error: "User ID required" });
     }
 
-    // Find the profile to check privacy setting
     const Profile = (await import("../models/profile.js")).default;
     const profile = await Profile.findOne({ user: profileUserId });
 
@@ -15,12 +13,10 @@ export const checkProfileAccess = async (req, res, next) => {
       return res.status(404).json({ error: "Profile not found" });
     }
 
-    // If profile is not private, allow access
     if (!profile.private) {
       return next();
     }
 
-    // If profile is private, check if user is authenticated and is the owner
     if (!req.isAuthenticated()) {
       return res
         .status(401)
