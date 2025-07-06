@@ -75,12 +75,11 @@ export const register = async (req, res) => {
   }
 };
 
-// Verify email endpoint
+
 export const verifyEmail = async (req, res) => {
   try {
     const token = req.query.token;
     const record = await VerificationToken.findOne({ token });
-    // invalid or expired token
     if (!record || record.expiresAt < new Date()) {
       return res.status(400).json({ error: "Invalid or expired token" });
     }
@@ -90,7 +89,6 @@ export const verifyEmail = async (req, res) => {
     }
     user.emailVerified = true;
     await user.save();
-    // remove token after successful verification
     await VerificationToken.deleteOne({ _id: record._id });
     return res.json({ message: "Email verified successfully" });
   } catch (err) {

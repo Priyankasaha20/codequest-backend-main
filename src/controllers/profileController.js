@@ -24,13 +24,15 @@ export const getProfile = async (req, res) => {
 
 // Update profile details
 export const updateProfile = async (req, res) => {
+  console.log(req.body);
+
   const {
     bio,
     location,
     academicYear,
     institute,
     phoneNumber,
-    private: isPrivate,
+     isPrivate,
   } = req.body;
   try {
     const updated = await Profile.findOneAndUpdate(
@@ -62,7 +64,7 @@ export const uploadProfilePicture = async (req, res) => {
   if (!req.file) return res.status(400).json({ error: "No file uploaded" });
   const userId = req.user.id;
   const ext = path.extname(req.file.originalname);
-  const objectName = `profile/${userId}/${Date.now()}${ext}`;
+  const objectName = `profile/user${userId}_${Date.now()}${ext}`;
   try {
     await minioClient.putObject(
       bucketName,
@@ -70,13 +72,11 @@ export const uploadProfilePicture = async (req, res) => {
       req.file.buffer,
       req.file.size
     );
-    const protocol = process.env.MINIO_USE_SSL === "true" ? "https" : "http";
-    const host = process.env.MINIO_ENDPOINT || "localhost";
-    const port = process.env.MINIO_PORT || "9000";
-    const publicUrl = `${protocol}://${host}:${port}/${bucketName}/${objectName}`;
+    // Store the file path for use with media route
+    const mediaPath = `/${objectName}`;
     const profile = await Profile.findOneAndUpdate(
       { user: userId },
-      { profilePic: publicUrl },
+      { profilePic: mediaPath },
       { new: true, upsert: true }
     );
 
@@ -102,7 +102,7 @@ export const uploadResume = async (req, res) => {
   }
   const userId = req.user.id;
   const ext = path.extname(req.file.originalname);
-  const objectName = `resumes/${userId}/${Date.now()}${ext}`;
+  const objectName = `resume/user${userId}_resume_${Date.now()}${ext}`;
   try {
     await minioClient.putObject(
       bucketName,
@@ -110,13 +110,11 @@ export const uploadResume = async (req, res) => {
       req.file.buffer,
       req.file.size
     );
-    const protocol = process.env.MINIO_USE_SSL === "true" ? "https" : "http";
-    const host = process.env.MINIO_ENDPOINT || "localhost";
-    const port = process.env.MINIO_PORT || "9000";
-    const publicUrl = `${protocol}://${host}:${port}/${bucketName}/${objectName}`;
+    // Store the file path for use with media route
+    const mediaPath = `/${objectName}`;
     const profile = await Profile.findOneAndUpdate(
       { user: userId },
-      { resumeUrl: publicUrl },
+      { resumeUrl: mediaPath },
       { new: true, upsert: true }
     );
 
