@@ -26,7 +26,6 @@ const options = {
       },
     },
   },
-  // look for OpenAPI annotations in route files
   apis: ["./src/routes/*.js"],
 };
 
