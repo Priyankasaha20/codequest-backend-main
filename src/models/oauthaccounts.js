@@ -31,7 +31,6 @@ const OAuthAccountSchema = new Schema(
   }
 );
 
-// prevent the same OAuth account from being linked twice
 OAuthAccountSchema.index({ provider: 1, providerId: 1 }, { unique: true });
 
 export default model("OAuthAccount", OAuthAccountSchema);
