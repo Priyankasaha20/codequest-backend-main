@@ -6,9 +6,8 @@ import cors from "cors";
 import passport from "./config/passport.js";
 import routes from "./routes/index.js";
 import "./config/db.js";
-import aiStatsRoutes from "./routes/aiStats.js";
-import interviewTypesRoutes from "./routes/interviewTypes.js";
-import sessionsRoutes from "./routes/sessions.js";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./config/swagger.js";
 
 const app = express();
 dotenv.config();
@@ -51,9 +50,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 app.use("/api", routes);
-app.use("/api/coach/stats", aiStatsRoutes);
-app.use("/api/coach/interview-types", interviewTypesRoutes);
-app.use("/api/coach/sessions", sessionsRoutes);
 
 export default app;

@@ -8,6 +8,8 @@ import {
   userExistsByEmail,
   sanitizeUser,
 } from "../services/authService.js";
+import { sendVerificationEmail } from "../services/emailService.js";
+import VerificationToken from "../models/verificationToken.js";
 
 export const register = async (req, res) => {
   try {
@@ -50,6 +52,9 @@ export const register = async (req, res) => {
 
     await newUser.save();
 
+    // send verification email
+    await sendVerificationEmail(newUser);
+
     req.login(newUser, (err) => {
       if (err) {
         return res.status(500).json({
@@ -67,6 +72,30 @@ export const register = async (req, res) => {
     res.status(500).json({
       error: "Internal server error",
     });
+  }
+};
+
+// Verify email endpoint
+export const verifyEmail = async (req, res) => {
+  try {
+    const token = req.query.token;
+    const record = await VerificationToken.findOne({ token });
+    // invalid or expired token
+    if (!record || record.expiresAt < new Date()) {
+      return res.status(400).json({ error: "Invalid or expired token" });
+    }
+    const user = await User.findById(record.user);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    user.emailVerified = true;
+    await user.save();
+    // remove token after successful verification
+    await VerificationToken.deleteOne({ _id: record._id });
+    return res.json({ message: "Email verified successfully" });
+  } catch (err) {
+    console.error("Email verification error:", err);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
@@ -99,7 +128,6 @@ export const login = (req, res, next) => {
     });
   })(req, res, next);
 };
-
 
 export const logout = (req, res) => {
   req.logout((err) => {

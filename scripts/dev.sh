@@ -49,4 +49,8 @@ echo "MinIO console available at http://localhost:9001 and API at http://localho
 # Start development server from project root
 cd "$(dirname "$0")/.."
 echo "Starting development server..."
+<<<<<<< HEAD
 npm run dev
+=======
+npm run dev
+>>>>>>> main

@@ -32,7 +32,34 @@ services:
       MINIO_ROOT_PASSWORD: minioadmin
     command: server /data --console-address ":9001"
 
-  # app service removed per request
+  app:
+    build: .
+    image: codequest-app:latest
+    container_name: codequest-app
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - MONGO_URI=mongodb://your_root_username:your_root_password@mongo:27017/codequest?authSource=admin
+      - SESSION_SECRET=a-very-strong-random-string
+      - FRONTEND_URL=https://your-domain.com
+      - COOKIE_DOMAIN=your-domain.com
+      - BASE_URL=https://your-domain.com
+      - GOOGLE_CLIENT_ID=your_google_client_id
+      - GOOGLE_CLIENT_SECRET=your_google_client_secret
+      - GITHUB_CLIENT_ID=your_github_client_id
+      - GITHUB_CLIENT_SECRET=your_github_client_secret
+      - MINIO_ENDPOINT=minio
+      - MINIO_PORT=9000
+      - MINIO_USE_SSL=false
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+      - MINIO_BUCKET_NAME=codequest-files
+    depends_on:
+      - mongo
+      - minio
 
 volumes:
   mongo-data:

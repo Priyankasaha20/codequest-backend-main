@@ -13,7 +13,6 @@ const minioClient = new Client({
 
 const bucketName = process.env.MINIO_BUCKET_NAME || "codequest-files";
 
-// Ensure bucket exists
 (async () => {
   try {
     // Add a small delay to allow MinIO container to fully start
@@ -26,11 +25,28 @@ const bucketName = process.env.MINIO_BUCKET_NAME || "codequest-files";
     } else {
       console.log(`✅  MinIO bucket "${bucketName}" exists.`);
     }
+    // Set public read policy for objects under profile/ prefix
+    const policy = {
+      Version: "2012-10-17",
+      Statement: [
+        {
+          Effect: "Allow",
+          Principal: { AWS: ["*"] },
+          Action: ["s3:GetObject"],
+          Resource: [`arn:aws:s3:::${bucketName}/profile/*`],
+        },
+      ],
+    };
+    await minioClient.setBucketPolicy(bucketName, JSON.stringify(policy));
   } catch (err) {
+<<<<<<< HEAD
     console.error("❌  Error ensuring MinIO bucket:", err.message);
     console.log(
       "🔄  MinIO will be available once the container is properly synced."
     );
+=======
+    console.error("❌  Error setting up MinIO bucket or policy:", err);
+>>>>>>> main
   }
 })();
 
