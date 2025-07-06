@@ -1,5 +1,6 @@
-import User from "../models/user.js";
-import OAuthAccount from "../models/oauthaccounts.js";
+import { db } from "../config/dbPostgres.js";
+import { users, oauthAccounts } from "../models/postgres/schema.js";
+import { eq, and } from "drizzle-orm";
 import { sanitizeUser } from "../services/authService.js";
 
 export const oauthSuccess = (req, res) => {
@@ -25,13 +26,24 @@ export const oauthFailure = (req, res) => {
 
 export const findOrCreateOAuthUser = async (profile, provider) => {
   try {
-    const oauthAccount = await OAuthAccount.findOne({
-      provider: provider,
-      providerId: profile.id,
-    }).populate("userId");
+    // Find existing OAuth account
+    const [oauthAccount] = await db
+      .select({
+        id: oauthAccounts.id,
+        userId: oauthAccounts.userId,
+        user: users,
+      })
+      .from(oauthAccounts)
+      .leftJoin(users, eq(oauthAccounts.userId, users.id))
+      .where(
+        and(
+          eq(oauthAccounts.provider, provider),
+          eq(oauthAccounts.providerId, profile.id)
+        )
+      );
 
-    if (oauthAccount && oauthAccount.userId) {
-      return oauthAccount.userId;
+    if (oauthAccount && oauthAccount.user) {
+      return oauthAccount.user;
     }
 
     const email =
@@ -41,28 +53,38 @@ export const findOrCreateOAuthUser = async (profile, provider) => {
 
     let user;
 
+    // Check if user exists by email
     if (email) {
-      user = await User.findOne({ email });
+      const [existingUser] = await db
+        .select()
+        .from(users)
+        .where(eq(users.email, email));
+      user = existingUser;
     }
 
+    // Create new user if doesn't exist
     if (!user) {
-      user = new User({
-        email: email || `${provider}_${profile.id}@oauth.local`,
-        name: profile.displayName || profile.username || `${provider}_user`,
-        avatarUrl:
-          profile.photos && profile.photos.length > 0
-            ? profile.photos[0].value
-            : null,
-        emailVerified: email ? true : false, // OAuth emails are typically verified
-      });
-      await user.save();
+      const [newUser] = await db
+        .insert(users)
+        .values({
+          email: email || `${provider}_${profile.id}@oauth.local`,
+          name: profile.displayName || profile.username || `${provider}_user`,
+          avatarUrl:
+            profile.photos && profile.photos.length > 0
+              ? profile.photos[0].value
+              : null,
+          emailVerified: email ? true : false, // OAuth emails are typically verified
+        })
+        .returning();
+      user = newUser;
     }
 
-    const newOAuthAccount = new OAuthAccount({
+    // Create OAuth account
+    await db.insert(oauthAccounts).values({
       provider: provider,
       providerId: profile.id,
       providerAccountId: profile.id, // Same as providerId for OAuth accounts
-      userId: user._id,
+      userId: user.id,
       email: email,
       displayName: profile.displayName || profile.username,
       avatarUrl:
@@ -70,7 +92,6 @@ export const findOrCreateOAuthUser = async (profile, provider) => {
           ? profile.photos[0].value
           : null,
     });
-    await newOAuthAccount.save();
 
     return user;
   } catch (error) {

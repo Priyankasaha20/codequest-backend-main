@@ -5,7 +5,9 @@ import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { Strategy as GitHubStrategy } from "passport-github2";
 import bcrypt from "bcrypt";
-import User from "../models/user.js";
+import { db } from "./dbPostgres.js";
+import { users } from "../models/postgres/schema.js";
+import { eq } from "drizzle-orm";
 import { findOrCreateOAuthUser } from "../controllers/oauthController.js";
 
 // Local Strategy
@@ -14,12 +16,18 @@ passport.use(
     { usernameField: "email" },
     async (email, password, done) => {
       try {
-        const user = await User.findOne({ email }).select("+passwordHash");
+        const [user] = await db
+          .select()
+          .from(users)
+          .where(eq(users.email, email));
+
         if (!user)
           return done(null, false, { message: "Invalid email or password" });
+
         const valid = await bcrypt.compare(password, user.passwordHash);
         if (!valid)
           return done(null, false, { message: "Invalid email or password" });
+
         return done(null, user);
       } catch (err) {
         return done(err);
@@ -75,7 +83,7 @@ passport.use(
 passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await User.findById(id);
+    const [user] = await db.select().from(users).where(eq(users.id, id));
     done(null, user);
   } catch (err) {
     done(err);

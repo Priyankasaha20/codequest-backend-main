@@ -1,7 +1,7 @@
-import User from "../models/user.js";
-import Profile from "../models/profile.js";
+import { db } from "../config/dbPostgres.js";
+import { users, profiles } from "../models/postgres/schema.js";
+import { eq } from "drizzle-orm";
 import { minioClient } from "../config/minio.js";
-
 
 export const serveMedia = async (req, res) => {
   try {
@@ -25,17 +25,25 @@ export const serveMedia = async (req, res) => {
         .json({ error: "Could not extract user ID from file path" });
     }
 
-    const user = await User.findById(userId);
+    const [user] = await db
+      .select()
+      .from(users)
+      .where(eq(users.id, parseInt(userId)));
+
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    const profile = await Profile.findOne({ user: userId });
+    const [profile] = await db
+      .select()
+      .from(profiles)
+      .where(eq(profiles.userId, parseInt(userId)));
+
     if (!profile) {
       return res.status(404).json({ error: "Profile not found" });
     }
 
-    if (profile.private && (!req.user || req.user._id.toString() !== userId)) {
+    if (profile.private && (!req.user || req.user.id !== parseInt(userId))) {
       return res
         .status(403)
         .json({ error: "Access denied - profile is private" });
@@ -58,7 +66,6 @@ export const serveMedia = async (req, res) => {
       default:
         return res.status(400).json({ error: "Unsupported file type" });
     }
-
 
     const bucketName = process.env.MINIO_BUCKET_NAME;
     const objectName = path.startsWith("/") ? path.substring(1) : path;
