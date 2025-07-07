@@ -1,5 +1,5 @@
 import { db } from "../config/dbPostgres.js";
-import { users, oauthAccounts } from "../models/postgres/schema.js";
+import { users, oauthAccounts } from "../db/schema.js";
 import { eq, and } from "drizzle-orm";
 import { sanitizeUser } from "../services/authService.js";
 

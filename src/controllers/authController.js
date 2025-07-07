@@ -1,14 +1,15 @@
 import bcrypt from "bcrypt";
 import passport from "../config/passport.js";
 import { db } from "../config/dbPostgres.js";
-import { users, verificationTokens } from "../models/postgres/schema.js";
-import { eq, and, lt } from "drizzle-orm";
+import { users, verificationTokens } from "../db/schema.js";
+import { eq, and, gt } from "drizzle-orm";
 import {
   isValidEmail,
   validatePassword,
   hashPassword,
   userExistsByEmail,
   sanitizeUser,
+  comparePassword,
 } from "../services/authService.js";
 import { sendVerificationEmail } from "../services/emailService.js";
 
@@ -89,7 +90,7 @@ export const verifyEmail = async (req, res) => {
       .where(
         and(
           eq(verificationTokens.token, token),
-          lt(new Date(), verificationTokens.expiresAt)
+          gt(verificationTokens.expiresAt, new Date())
         )
       );
 
@@ -126,64 +127,57 @@ export const verifyEmail = async (req, res) => {
 };
 
 // Login user
-export const login = (req, res, next) => {
-  passport.authenticate("local", (err, user, info) => {
-    if (err) {
-      return res.status(500).json({
-        error: "Internal server error",
-      });
+export const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ error: "Email and password are required" });
     }
-
+    // Find user via Drizzle ORM
+    const [user] = await db.select().from(users).where(eq(users.email, email));
     if (!user) {
-      return res.status(401).json({
-        error: info.message || "Invalid credentials",
-      });
+      return res.status(401).json({ error: "Invalid credentials" });
     }
-
+    const valid = await comparePassword(password, user.passwordHash);
+    if (!valid) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
     req.login(user, (err) => {
       if (err) {
-        return res.status(500).json({
-          error: "Login failed",
-        });
+        return res.status(500).json({ error: "Login failed" });
       }
-
       return res.json({
         message: "Login successful",
         user: sanitizeUser(user),
       });
     });
-  })(req, res, next);
+  } catch (err) {
+    console.error("Login error:", err);
+    return res.status(500).json({ error: "Internal server error" });
+  }
 };
 
-export const logout = (req, res) => {
-  req.logout((err) => {
-    if (err) {
-      return res.status(500).json({
-        error: "Logout failed",
-      });
-    }
-
-    req.session.destroy((err) => {
-      if (err) {
-        return res.status(500).json({
-          error: "Session destruction failed",
-        });
-      }
-
-      res.clearCookie("connect.sid");
-      return res.json({
-        message: "Logout successful",
+export const logout = async (req, res) => {
+  try {
+    req.logout((err) => {
+      if (err) throw err;
+      req.session.destroy((err) => {
+        if (err) throw err;
+        res.clearCookie("connect.sid");
+        return res.json({ message: "Logout successful" });
       });
     });
-  });
+  } catch (err) {
+    console.error("Logout error:", err);
+    return res.status(500).json({ error: "Logout failed" });
+  }
 };
 
 // Get current user
 export const getCurrentUser = (req, res) => {
   if (req.isAuthenticated()) {
-    return res.json({
-      user: sanitizeUser(req.user),
-    });
+    // User is already fetched in session, just return sanitized
+    return res.json({ user: sanitizeUser(req.user) });
   }
 
   return res.status(401).json({
