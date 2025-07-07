@@ -1,6 +1,6 @@
 import path from "path";
 import { db } from "../config/dbPostgres.js";
-import { profiles, users } from "../models/postgres/schema.js";
+import { profiles, users } from "../db/schema.js";
 import { eq } from "drizzle-orm";
 import { minioClient, bucketName } from "../config/minio.js";
 

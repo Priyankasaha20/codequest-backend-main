@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "migrate:generate": "drizzle-kit generate --config drizzle.config.js",
+    "migrate:push": "drizzle-kit push --config drizzle.config.js"
   },
   "author": "",
   "license": "ISC",
