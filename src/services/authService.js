@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { db } from "../config/dbPostgres.js";
-import { users } from "../models/postgres/schema.js";
+import { users } from "../models/postgres/auth.js";
 import { eq } from "drizzle-orm";
 
 /**

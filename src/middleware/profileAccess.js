@@ -1,14 +1,19 @@
-import Profile from "../models/profile.js";
+import { db } from "../config/dbPostgres.js";
+import { profiles } from "../models/postgres/auth.js";
+import { eq } from "drizzle-orm";
 
 export const checkProfileAccess = async (req, res, next) => {
   try {
-    const profileUserId = req.params.userId || req.params.id;
+    const profileUserId = parseInt(req.params.userId || req.params.id, 10);
 
     if (!profileUserId) {
       return res.status(400).json({ error: "User ID required" });
     }
 
-    const profile = await Profile.findOne({ user: profileUserId });
+    const [profile] = await db
+      .select()
+      .from(profiles)
+      .where(eq(profiles.userId, profileUserId));
 
     if (!profile) {
       return res.status(404).json({ error: "Profile not found" });

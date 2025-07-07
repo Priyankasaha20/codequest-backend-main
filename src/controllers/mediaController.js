@@ -1,5 +1,5 @@
 import { db } from "../config/dbPostgres.js";
-import { users, profiles } from "../db/schema.js";
+import { users, profiles } from "../models/postgres/auth.js";
 import { eq } from "drizzle-orm";
 import { minioClient } from "../config/minio.js";
 

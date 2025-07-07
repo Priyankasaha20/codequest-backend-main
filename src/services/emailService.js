@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import { Resend } from "resend";
 import crypto from "crypto";
 import { db } from "../config/dbPostgres.js";
-import { verificationTokens } from "../models/postgres/schema.js";
+import { verificationTokens } from "../models/postgres/auth.js";
 
 dotenv.config();
 

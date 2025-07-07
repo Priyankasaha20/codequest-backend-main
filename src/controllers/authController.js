@@ -1,7 +1,5 @@
-import bcrypt from "bcrypt";
-import passport from "../config/passport.js";
 import { db } from "../config/dbPostgres.js";
-import { users, verificationTokens } from "../db/schema.js";
+import { users, verificationTokens } from "../models/postgres/auth.js";
 import { eq, and, gt } from "drizzle-orm";
 import {
   isValidEmail,
