@@ -6,7 +6,7 @@ import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { Strategy as GitHubStrategy } from "passport-github2";
 import bcrypt from "bcrypt";
 import { db } from "./dbPostgres.js";
-import { users } from "../models/postgres/schema.js";
+import { users } from "../models/postgres/auth.js";
 import { eq } from "drizzle-orm";
 import { findOrCreateOAuthUser } from "../controllers/oauthController.js";
 
