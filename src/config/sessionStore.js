@@ -14,7 +14,13 @@ export class DrizzleSessionStore extends session.Store {
         [sid]
       );
       if (res.rowCount === 0) return callback(null, null);
-      const sess = res.rows[0].data;
+      // Parse stored session JSON string
+      let sess;
+      try {
+        sess = JSON.parse(res.rows[0].data);
+      } catch (parseErr) {
+        return callback(parseErr);
+      }
       return callback(null, sess);
     } catch (err) {
       return callback(err);
