@@ -80,8 +80,6 @@ export const register = async (req, res) => {
 export const verifyEmail = async (req, res) => {
   try {
     const token = req.query.token;
-
-    // Find verification token with Drizzle ORM
     const [record] = await db
       .select()
       .from(verificationTokens)
