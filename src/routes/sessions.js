@@ -3,15 +3,12 @@ import {
   startSession,
   submitTextAnswer,
   completeSession,
-  getUserSessions,
   getResults,
 } from "../controllers/sessionsController.js";
 import { isAuth } from "../middleware/auth.js";
 
 const router = Router();
 
-// Fetch all sessions for the logged-in user
-router.get("/", isAuth, getUserSessions);
 
 // Kick off a new interview session
 router.post("/start", isAuth, startSession);

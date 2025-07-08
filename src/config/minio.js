@@ -39,14 +39,7 @@ const bucketName = process.env.MINIO_BUCKET_NAME || "codequest-files";
     };
     await minioClient.setBucketPolicy(bucketName, JSON.stringify(policy));
   } catch (err) {
-<<<<<<< HEAD
-    console.error("❌  Error ensuring MinIO bucket:", err.message);
-    console.log(
-      "🔄  MinIO will be available once the container is properly synced."
-    );
-=======
     console.error("❌  Error setting up MinIO bucket or policy:", err);
->>>>>>> main
   }
 })();
 
