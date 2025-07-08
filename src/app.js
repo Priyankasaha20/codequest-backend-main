@@ -6,8 +6,6 @@ import cors from "cors";
 import passport from "./config/passport.js";
 import routes from "./routes/index.js";
 import "./config/db.js";
-import swaggerUi from "swagger-ui-express";
-import swaggerSpec from "./config/swagger.js";
 
 const app = express();
 dotenv.config();
@@ -49,8 +47,6 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use("/api", routes);
 

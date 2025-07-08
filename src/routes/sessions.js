@@ -1,28 +1,28 @@
 import { Router } from "express";
 import {
   startSession,
-  submitAnswer,
+  submitTextAnswer,
   completeSession,
   getUserSessions,
+  getResults,
 } from "../controllers/sessionsController.js";
-import multer from "multer";
+import { isAuth } from "../middleware/auth.js";
 
 const router = Router();
-const upload = multer({
-  storage: multer.memoryStorage(),
-  limits: { fileSize: 10 * 1024 * 1024 },
-});
 
-// Get user sessions
-router.get("/", getUserSessions);
+// Fetch all sessions for the logged-in user
+router.get("/", isAuth, getUserSessions);
 
-// Start new session
-router.post("/", startSession);
+// Kick off a new interview session
+router.post("/start", isAuth, startSession);
 
-// Submit answer to question
-router.post("/:id/answer", upload.single("audio"), submitAnswer);
+// Submit text answer for a question (Option A: client-side STT)
+router.post("/:sessionId/answer", isAuth, submitTextAnswer);
 
-// Complete session
-router.post("/:id/complete", completeSession);
+// Complete the session: score + feedback + summary
+router.post("/:sessionId/complete", isAuth, completeSession);
+
+// Get full results for a completed session
+router.get("/:sessionId/results", isAuth, getResults);
 
 export default router;

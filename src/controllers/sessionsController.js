@@ -1,114 +1,104 @@
-import Session from "../models/Session.js";
-import InterviewType from "../models/InterviewType.js";
-import aiService from "../services/aiService.js";
+// src/controllers/sessionsController.js
+const InterviewType = require('../models/InterviewType');
+const Session       = require('../models/Session');
+const speechService = require('../services/speechService');
+const aiService     = require('../services/aiService');
 
-export async function startSession(req, res, next) {
+exports.startSession = async (req, res, next) => {
   try {
-    const { userId, typeSlug } = req.body;
-
-    // Validate required fields
-    if (!userId || !typeSlug) {
-      return res.status(400).json({
-        error: "Missing required fields: userId and typeSlug",
-      });
-    }
-
-    const type = await InterviewType.findOne({ slug: typeSlug });
-    if (!type) {
-      return res.status(404).json({ error: "Interview type not found" });
-    }
+    const { interviewTypeId } = req.body;
+    const it = await InterviewType.findById(interviewTypeId);
+    if (!it) return res.status(404).json({ error: 'Interview type not found' });
 
     const session = await Session.create({
-      user: userId,
-      type: type._id,
-      startedAt: new Date(),
+      user: req.user.id,
+      interviewType: it._id,
+      questions: it.questions,      // assume your InterviewType holds an array of Qs
+      answers: []
     });
-    res.status(201).json(session);
-  } catch (err) {
-    next(err);
-  }
-}
 
-export async function submitAnswer(req, res, next) {
-  try {
-    const { id } = req.params;
-    const { question, answer } = req.body;
-
-    // Validate input
-    if (!question || !answer) {
-      return res
-        .status(400)
-        .json({ error: "Question and answer are required" });
-    }
-
-    // Find the session
-    const session = await Session.findById(id);
-    if (!session) {
-      return res.status(404).json({ error: "Session not found" });
-    }
-
-    // Get AI feedback
-    const feedback = await aiService.evaluate(session.type, question, answer);
-
-    // Add feedback to session
-    session.feedback.push(feedback);
-    await session.save();
-
-    // Get next question
-    const nextQuestion = await aiService.getNextQuestion(session.type);
-
-    // Return response
     res.json({
-      feedback,
-      nextQuestion,
-      progress: {
-        questionsAnswered: session.feedback.length,
-        sessionStatus: session.status,
-      },
+      sessionId: session._id,
+      questions: session.questions
     });
   } catch (err) {
-    console.error("Error submitting answer:", err);
     next(err);
   }
-}
+};
 
-export async function completeSession(req, res, next) {
+exports.handleAudioChunk = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const session = await Session.findById(id);
+    const { sessionId } = req.params;
+    const { questionIndex } = req.body;
+    const audioBuffer = req.file.buffer;
 
-    if (!session) {
-      return res.status(404).json({ error: "Session not found" });
-    }
+    // transcribe to text
+    const text = await speechService.transcribe(audioBuffer);
 
-    session.endedAt = new Date();
-    session.status = "completed";
-    session.score =
-      session.feedback.reduce((sum, f) => sum + (f.score || 0), 0) /
-      (session.feedback.length || 1);
+    // append answer
+    const session = await Session.findById(sessionId);
+    if (!session) return res.status(404).json({ error: 'Session not found' });
+
+    session.answers.push({ questionIndex, text });
     await session.save();
-    res.json(session);
+
+    res.json({ text });
   } catch (err) {
-    console.error("Error completing session:", err);
     next(err);
   }
-}
+};
 
-export async function getUserSessions(req, res, next) {
+exports.completeSession = async (req, res, next) => {
   try {
-    const { userId } = req.query;
+    const { sessionId } = req.params;
+    const session = await Session.findById(sessionId);
+    if (!session) return res.status(404).json({ error: 'Session not found' });
 
-    if (!userId) {
-      return res.status(400).json({ error: "userId is required" });
-    }
+    // evaluate answers → feedback & per-Q score
+    const evaluations = await aiService.evaluate(
+      session.questions,
+      session.answers
+    );
+    session.feedback = evaluations.map(ev => ev.feedback);
+    session.scores   = evaluations.map(ev => ev.score);
+    session.totalScore = evaluations.reduce((sum, ev) => sum + ev.score, 0);
 
-    const sessions = await Session.find({ user: userId })
-      .sort({ createdAt: -1 })
-      .populate("type");
+    // overall summary
+    session.summary = await aiService.summarize(
+      session.questions,
+      session.answers,
+      session.feedback
+    );
 
-    res.json(sessions);
+    await session.save();
+
+    res.json({
+      questions: session.questions,
+      answers:   session.answers,
+      feedback:  session.feedback,
+      scores:    session.scores,
+      totalScore: session.totalScore,
+      summary:   session.summary
+    });
   } catch (err) {
-    console.error("Error getting user sessions:", err);
     next(err);
   }
-}
+};
+
+exports.getResults = async (req, res, next) => {
+  try {
+    const session = await Session.findById(req.params.sessionId);
+    if (!session) return res.status(404).json({ error: 'Session not found' });
+
+    res.json({
+      questions: session.questions,
+      answers:   session.answers,
+      feedback:  session.feedback,
+      scores:    session.scores,
+      totalScore: session.totalScore,
+      summary:   session.summary
+    });
+  } catch (err) {
+    next(err);
+  }
+};
