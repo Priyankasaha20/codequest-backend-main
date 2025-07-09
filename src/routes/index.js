@@ -4,6 +4,7 @@ import profileRoutes from "./profile.js";
 import interviewTypesRoutes from "./interviewTypes.js";
 import sessionsRoutes from "./sessions.js";
 import mediaRoutes from "./media.js";
+import quizRoutes from "./quiz.js";
 
 const router = express.Router();
 
@@ -16,6 +17,8 @@ router.use("/sessions", sessionsRoutes);
 router.use("/coach/session", sessionsRoutes);
 
 router.use("/media", mediaRoutes);
+
+router.use("/quiz", quizRoutes);
 
 router.get("/health", (req, res) => {
   res.json({
