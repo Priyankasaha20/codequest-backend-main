@@ -104,7 +104,6 @@ export const verifyEmail = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Update user email verification status
     await db
       .update(users)
       .set({ emailVerified: true })
