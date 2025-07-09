@@ -1,0 +1,4010 @@
+{
+  "DBMS": [
+    {
+      "question": "What does DBMS stand for?",
+      "options": [
+        "Database Management System",
+        "Data Base Management Service",
+        "Data Bank Management System",
+        "Database Master System"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following is a type of DBMS?",
+      "options": [
+        "Relational",
+        "Hierarchical",
+        "Network",
+        "All of the above"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "Which SQL command is used to retrieve data from a database?",
+      "options": [
+        "INSERT",
+        "SELECT",
+        "UPDATE",
+        "DELETE"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is normalization in the context of databases?",
+      "options": [
+        "The process of organizing data",
+        "The process of backing up data",
+        "The process of encrypting data",
+        "The process of indexing data"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following is a primary key?",
+      "options": [
+        "unique identifier for a record",
+        "An index for faster search",
+        "foreign key reference",
+        "temporary key"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "In a relational database, a 'foreign key' is used to:",
+      "options": [
+        "Uniquely identify a record",
+        "Establish a link between tables",
+        "Store large text fields",
+        "Encrypt sensitive data"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is NOT a characteristic of a DBMS?",
+      "options": [
+        "Data redundancy",
+        "Data integrity",
+        "Data security",
+        "Data consistency"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What is the purpose of a database index?",
+      "options": [
+        "To increase data redundancy",
+        "To speed up data retrieval",
+        "To enforce data integrity",
+        "To store backup data"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following languages is used to manage and manipulate databases?",
+      "options": [
+        "HTML",
+        "SQL",
+        "CSS",
+        "XML"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is a 'transaction' in the context of DBMS?",
+      "options": [
+        "single unit of work",
+        "scheduled backup",
+        "type of database schema",
+        "An error in data entry"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What does ACID properties refer to in the context of DBMS?",
+      "options": [
+        "Atomicity, Consistency, Isolation, Durability",
+        "Accuracy, Completeness, Integrity, Dependency",
+        "Availability, Capacity, Integrity, Durability",
+        "Atomicity, Completeness, Isolation, Dependency"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What is the purpose of normalization in database design?",
+      "options": [
+        "To increase data redundancy",
+        "To reduce data redundancy and improve data integrity",
+        "To complicate database queries",
+        "To slow down database performance"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the purpose of an index in a database?",
+      "options": [
+        "To encrypt the data",
+        "To speed up data retrieval",
+        "To store metadata about the database",
+        "To define user access privileges"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is a primary key?",
+      "options": [
+        "key that can have duplicate values",
+        "key that uniquely identifies each record in a table",
+        "key used for sorting data",
+        "key used to encrypt the database"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is a transaction in a DBMS?",
+      "options": [
+        "single SQL statement",
+        "logical unit of work that must be entirely completed or aborted",
+        "backup of the database",
+        "user's login session"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which language is primarily used to interact with a DBMS?",
+      "options": [
+        "Python",
+        "Java",
+        "SQL",
+        "C++"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is a primary key in a database?",
+      "options": [
+        "field that uniquely identifies a record",
+        "field that can have duplicate values",
+        "field that is always null",
+        "field that is used for indexing only"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What is a foreign key?",
+      "options": [
+        "key that uniquely identifies a record in its own table",
+        "key used to link two tables together",
+        "key that is only used for indexing",
+        "key that cannot be null"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is a popular relational database management system?",
+      "options": [
+        "MongoDB",
+        "MySQL",
+        "Cassandra",
+        "Hadoop"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What does ACID stand for in database transactions?",
+      "options": [
+        "Atomicity, Consistency, Isolation, Durability",
+        "Atomicity, Complexity, Integrity, Durability",
+        "Atomicity, Consistency, Isolation, Data",
+        "Application, Consistency, Isolation, Durability"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What does ACID stand for in the context of DBMS?",
+      "options": [
+        "Atomicity, Consistency, Isolation, Durability",
+        "Accuracy, Consistency, Integrity, Durability",
+        "Atomicity, Control, Isolation, Durability",
+        "Accuracy, Control, Integrity, Durability"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which normalization form aims to eliminate transitive dependencies?",
+      "options": [
+        "1NF",
+        "2NF",
+        "3NF",
+        "BCNF"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following is NOT a type of database relationship?",
+      "options": [
+        "One-to-one",
+        "One-to-many",
+        "Many-to-many",
+        "Many-to-one-to-many"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "What is the function of the 'GROUP BY' clause in SQL?",
+      "options": [
+        "To filter data based on a condition",
+        "To sort data in ascending order",
+        "To aggregate data based on one or more columns",
+        "To join two or more tables"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which SQL statement is used to modify data in a table?",
+      "options": [
+        "SELECT",
+        "INSERT",
+        "UPDATE",
+        "DELETE"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "In a relational database, what is a primary key?",
+      "options": [
+        "unique identifier for a record",
+        "foreign key reference",
+        "An index for faster search",
+        "type of data model"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What is normalization in DBMS?",
+      "options": [
+        "The process of organizing data",
+        "The process of encrypting data",
+        "The process of backing up data",
+        "The process of data replication"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What is a foreign key in a relational database?",
+      "options": [
+        "primary key from another table",
+        "reference to the same table",
+        "unique identifier",
+        "An optional key"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What does the term 'data integrity' refer to?",
+      "options": [
+        "Accuracy and consistency of data",
+        "Speed of data access",
+        "Volume of data stored",
+        "Cost of data management"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What does ACID properties in DBMS stand for?",
+      "options": [
+        "Atomicity, Consistency, Isolation, Durability",
+        "Accuracy, Consistency, Integrity, Durability",
+        "Atomicity, Completeness, Integrity, Durability",
+        "Accuracy, Completeness, Isolation, Dependency"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which SQL command is used to add a new column to an existing table?",
+      "options": [
+        "CREATE COLUMN",
+        "ADD COLUMN",
+        "ALTER TABLE",
+        "UPDATE TABLE"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following is NOT a DML (Data Manipulation Language) command?",
+      "options": [
+        "SELECT",
+        "INSERT",
+        "UPDATE",
+        "CREATE"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "In a relational database, what is the term for a unique identifier for a record?",
+      "options": [
+        "Foreign Key",
+        "Primary Key",
+        "Composite Key",
+        "Candidate Key"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is NOT a DML command?",
+      "options": [
+        "SELECT",
+        "INSERT",
+        "UPDATE",
+        "CREATE TABLE"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "Which of the following is the most commonly used normalization form?",
+      "options": [
+        "1NF",
+        "2NF",
+        "3NF",
+        "BCNF"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which type of join returns all rows from the left table and the matching rows from the right table?",
+      "options": [
+        "Inner Join",
+        "Right Join",
+        "Full Outer Join",
+        "Left Join"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "Which database model represents data as a collection of records and pointers?",
+      "options": [
+        "Relational Model",
+        "Hierarchical Model",
+        "Network Model",
+        "Object-Oriented Model"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is a Stored Procedure?",
+      "options": [
+        "collection of SQL statements that can be executed as a single unit",
+        "data structure used to store data in memory",
+        "function used to validate data",
+        "table used to store metadata"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What is an example of a relational database management system?",
+      "options": [
+        "MySQL",
+        "MongoDB",
+        "Redis",
+        "Cassandra"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "In DBMS, what does ACID stand for?",
+      "options": [
+        "Atomicity, Consistency, Isolation, Durability",
+        "Accuracy, Consistency, Isolation, Durability",
+        "Atomicity, Consistency, Integration, Durability",
+        "Atomicity, Control, Isolation, Durability"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following languages is used to define the structure of a database?",
+      "options": [
+        "DML",
+        "DDL",
+        "DCL",
+        "SQL"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What type of model does a NoSQL database primarily use?",
+      "options": [
+        "Relational Model",
+        "Document Model",
+        "Object Model",
+        "Graph Model"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which SQL command is used to modify the structure of an existing table?",
+      "options": [
+        "UPDATE",
+        "MODIFY",
+        "ALTER",
+        "CHANGE"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is data normalization primarily used for in DBMS?",
+      "options": [
+        "To increase data redundancy",
+        "To minimize data redundancy and improve data integrity",
+        "To speed up data retrieval",
+        "To encrypt sensitive data"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which type of database model represents data as a collection of records with fields, where relationships are represented as links between records?",
+      "options": [
+        "Relational Model",
+        "Hierarchical Model",
+        "Network Model",
+        "Object-Oriented Model"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is a view in a DBMS?",
+      "options": [
+        "physical table in the database",
+        "virtual table derived from the result of a query",
+        "constraint on the data",
+        "An index on a table"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What type of join returns all records when there is a match in either left or right table?",
+      "options": [
+        "INNER JOIN",
+        "OUTER JOIN",
+        "CROSS JOIN",
+        "SELF JOIN"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which type of join returns all rows from both tables and fills in NULL values where there is no matching row?",
+      "options": [
+        "INNER JOIN",
+        "LEFT JOIN",
+        "RIGHT JOIN",
+        "FULL OUTER JOIN"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "What is a data warehouse primarily used for?",
+      "options": [
+        "Online Transaction Processing (OLTP)",
+        "Online Analytical Processing (OLAP)",
+        "Real-time data processing",
+        "Creating websites"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the main purpose of a DBMS?",
+      "options": [
+        "To manage data effectively",
+        "To create user interfaces",
+        "To perform mathematical calculations",
+        "To design hardware"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What type of model does a relational DBMS use?",
+      "options": [
+        "Table-based",
+        "Graph-based",
+        "Document-based",
+        "Key-value"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which concurrency control technique prevents multiple transactions from accessing the same data simultaneously?",
+      "options": [
+        "Timestamping",
+        "Two-Phase Locking",
+        "Optimistic Concurrency Control",
+        "All of the above"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following languages is commonly used to communicate with a DBMS?",
+      "options": [
+        "HTML",
+        "SQL",
+        "JavaScript",
+        "CSS"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is an example of a NoSQL database?",
+      "options": [
+        "MongoDB",
+        "Microsoft SQL Server",
+        "SQLite",
+        "IBM Db2"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "In which normal form is a relation if it has no transitive dependencies?",
+      "options": [
+        "First Normal Form (1NF)",
+        "Second Normal Form (2NF)",
+        "Third Normal Form (3NF)",
+        "Boyce-Codd Normal Form (BCNF)"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which SQL command is used to remove rows from a table based on a specified condition?",
+      "options": [
+        "DROP",
+        "DELETE",
+        "TRUNCATE",
+        "UPDATE"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What does ACID properties stand for in the context of database transactions?",
+      "options": [
+        "Atomicity, Consistency, Isolation, Durability",
+        "Accuracy, Consistency, Integrity, Delivery",
+        "Availability, Consistency, Isolation, Delivery",
+        "Atomicity, Correctness, Integrity, Durability"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which type of key uniquely identifies each record in a table and cannot be null?",
+      "options": [
+        "Foreign Key",
+        "Composite Key",
+        "Super Key",
+        "Primary Key"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "What is a database view?",
+      "options": [
+        "physical table stored on the disk",
+        "virtual table derived from the result-set of a stored query",
+        "collection of stored procedures",
+        "set of indexes"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which SQL keyword is used to sort the result-set of a query?",
+      "options": [
+        "GROUP BY",
+        "WHERE",
+        "ORDER BY",
+        "HAVING"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following SQL statements will delete data from a table?",
+      "options": [
+        "DELETE FROM",
+        "REMOVE FROM",
+        "DROP TABLE",
+        "TRUNCATE TABLE"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which normal form is based on the concept of functional dependency?",
+      "options": [
+        "1NF",
+        "2NF",
+        "3NF",
+        "BCNF"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the purpose of a foreign key?",
+      "options": [
+        "To uniquely identify a row in a table",
+        "To enforce referential integrity between tables",
+        "To improve query performance",
+        "To encrypt data"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is a database transaction?",
+      "options": [
+        "single SQL statement",
+        "logical unit of work that must be performed completely or not at all",
+        "collection of tables",
+        "view of data"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which SQL command is used to remove all rows from a table without deleting the table itself?",
+      "options": [
+        "DELETE",
+        "DROP",
+        "TRUNCATE",
+        "REMOVE"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is the purpose of the 'WHERE' clause in an SQL statement?",
+      "options": [
+        "To specify the tables to retrieve data from",
+        "To specify the order in which the data should be sorted",
+        "To filter the data based on a specified condition",
+        "To group the data based on a common attribute"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following SQL commands is used to remove a table from a database?",
+      "options": [
+        "DELETE",
+        "DROP",
+        "REMOVE",
+        "ERASE"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What type of relationship exists between two tables when one table's primary key is referenced in another table?",
+      "options": [
+        "One-to-One",
+        "One-to-Many",
+        "Many-to-Many",
+        "Many-to-One"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What does normalization in a database design aim to achieve?",
+      "options": [
+        "Increase data redundancy",
+        "Eliminate data duplication",
+        "Improve query performance",
+        "Simplify database queries"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is a DBMS that is designed for handling large amounts of data in a distributed environment?",
+      "options": [
+        "MySQL",
+        "Oracle",
+        "MongoDB",
+        "Apache Cassandra"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "Which of the following is used to control access to data within a database?",
+      "options": [
+        "Data Definition Language (DDL)",
+        "Data Manipulation Language (DML)",
+        "Data Control Language (DCL)",
+        "Data Query Language (DQL)"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following models is used in relational DBMS?",
+      "options": [
+        "Hierarchical Model",
+        "Network Model",
+        "Object-oriented Model",
+        "Table-based Model"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "Which of the following is a key feature of a distributed DBMS?",
+      "options": [
+        "Centralized data storage",
+        "Data replication",
+        "Manual data management",
+        "Limited user access"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which type of database relationship exists when one record in a table is related to many records in another table?",
+      "options": [
+        "One-to-One",
+        "One-to-Many",
+        "Many-to-Many",
+        "Self-Referencing"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the purpose of a JOIN operation in SQL?",
+      "options": [
+        "To combine rows from two or more tables based on a related column.",
+        "To filter rows based on a specified condition.",
+        "To sort rows in ascending or descending order.",
+        "To insert new rows into a table."
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which clause is used to filter rows in a SELECT statement?",
+      "options": [
+        "ORDER BY",
+        "GROUP BY",
+        "WHERE",
+        "HAVING"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which operator is used to sort the result-set in SQL?",
+      "options": [
+        "ORDER BY",
+        "SORT BY",
+        "GROUP BY",
+        "FILTER BY"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following statements is true about a view in a database?",
+      "options": [
+        "view is a virtual table",
+        "view stores data physically",
+        "view cannot be queried",
+        "view is always read-only"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which SQL command is used to change data in a table?",
+      "options": [
+        "SELECT",
+        "UPDATE",
+        "INSERT",
+        "DELETE"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is a type of relationship in database design?",
+      "options": [
+        "Zero-to-many",
+        "One-to-all",
+        "Many-to-zero",
+        "One-to-one"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "What does the term 'concurrency control' refer to in DBMS?",
+      "options": [
+        "Ensuring data security",
+        "Managing simultaneous access to data",
+        "Optimizing query performance",
+        "Validating data integrity"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which type of database model organizes data in a tree-like structure?",
+      "options": [
+        "Relational model",
+        "Hierarchical model",
+        "Network model",
+        "Object-oriented model"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is SQL primarily used for?",
+      "options": [
+        "Data encryption",
+        "Data analysis",
+        "Database querying",
+        "Database design"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which database level is closest to the end-users?",
+      "options": [
+        "Physical Level",
+        "Conceptual Level",
+        "Internal Level",
+        "External Level"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "Which SQL clause is used to filter rows based on a condition?",
+      "options": [
+        "ORDER BY",
+        "GROUP BY",
+        "WHERE",
+        "HAVING"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What type of relationship is represented by a foreign key in a DBMS?",
+      "options": [
+        "One-to-One",
+        "Many-to-Many",
+        "One-to-Many",
+        "All of the above"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "In a relational database, data is stored in what format?",
+      "options": [
+        "Trees",
+        "Graphs",
+        "Tables",
+        "Files"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following is a popular Open Source DBMS?",
+      "options": [
+        "Oracle",
+        "MySQL",
+        "Microsoft SQL Server",
+        "IBM Db2"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is NOT a common database security measure?",
+      "options": [
+        "Encryption",
+        "Authentication",
+        "Authorization",
+        "Data Duplication"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "Which of the following operations is not typically performed by a DBMS?",
+      "options": [
+        "Data storage and retrieval",
+        "Data manipulation",
+        "Data migration",
+        "Data visualization"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "Which normal form is considered the strictest and highest level of normalization?",
+      "options": [
+        "1NF",
+        "2NF",
+        "3NF",
+        "BCNF"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "What is the term for a query that retrieves data from multiple tables?",
+      "options": [
+        "Selection Query",
+        "Join Query",
+        "Aggregation Query",
+        "Projection Query"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the role of a database administrator (DBA)?",
+      "options": [
+        "Developing database applications",
+        "Designing user interfaces",
+        "Managing and maintaining the database system",
+        "Writing SQL queries"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following is NOT a characteristic of a good database management system (DBMS)?",
+      "options": [
+        "Data integrity",
+        "Data redundancy",
+        "Data consistency",
+        "Data security"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is a type of database normalization that eliminates redundant data and ensures that attributes are functionally dependent on the primary key?",
+      "options": [
+        "Denormalization",
+        "First Normal Form (1NF)",
+        "Third Normal Form (3NF)",
+        "Second Normal Form (2NF)"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following concurrency control techniques is most prone to deadlocks?",
+      "options": [
+        "Two-phase locking",
+        "Timestamp ordering",
+        "Optimistic concurrency control",
+        "Multi-version concurrency control"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which normal form is considered the most restrictive and aims to eliminate all redundancy that can be inferred from the database schema?",
+      "options": [
+        "1NF (First Normal Form)",
+        "2NF (Second Normal Form)",
+        "3NF (Third Normal Form)",
+        "BCNF (Boyce-Codd Normal Form)"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "Which normalization form is considered the most strict and aims to eliminate all transitive dependencies?",
+      "options": [
+        "1NF",
+        "2NF",
+        "3NF",
+        "BCNF"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "Which ACID property ensures that a transaction is treated as a single, indivisible unit of work?",
+      "options": [
+        "Atomicity",
+        "Consistency",
+        "Isolation",
+        "Durability"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following ACID properties ensures that a transaction either completes fully or has no effect at all?",
+      "options": [
+        "Atomicity",
+        "Consistency",
+        "Isolation",
+        "Durability"
+      ],
+      "answer": "A"
+    }
+  ],
+  "OOPS": [
+    {
+      "question": "What does OOP stand for?",
+      "options": [
+        "Object-Oriented Programming",
+        "Operational Object Protocol",
+        "Object-Oriented Process",
+        "Operational Object Programming"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following is NOT a core principle of OOP?",
+      "options": [
+        "Encapsulation",
+        "Inheritance",
+        "Polymorphism",
+        "Compilation"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "In OOP, which keyword is used to create a new class?",
+      "options": [
+        "new",
+        "class",
+        "define",
+        "object"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the main purpose of encapsulation in OOP?",
+      "options": [
+        "To allow multiple forms of a function",
+        "To restrict access to certain components",
+        "To enhance code readability",
+        "To simplify code writing"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following best describes inheritance in OOP?",
+      "options": [
+        "way to improve performance",
+        "technique to create new classes from existing ones",
+        "method to hide data",
+        "process of compiling code"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What does polymorphism allow in OOP?",
+      "options": [
+        "Multiple classes to inherit from one class",
+        "Methods to perform differently based on object type",
+        "Encapsulation of data",
+        "Creation of abstract classes"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is an abstract class?",
+      "options": [
+        "class that cannot be instantiated",
+        "class that has no methods",
+        "class that can be instantiated multiple times",
+        "class that contains only static methods"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following is an example of a constructor in OOP?",
+      "options": [
+        "initialize()",
+        "create()",
+        "main()",
+        "constructor()"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "In OOP, what is meant by 'method overriding'?",
+      "options": [
+        "Defining a method in a subclass with the same name as in the superclass",
+        "Creating a new method in a class",
+        "Using multiple methods in one class",
+        "Overloading a method with different parameters"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following is a feature of OOP that allows code to be reused?",
+      "options": [
+        "Overloading",
+        "Inheritance",
+        "Abstraction",
+        "Encapsulation"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is NOT a core concept of Object-Oriented Programming (OOP)?",
+      "options": [
+        "Inheritance",
+        "Polymorphism",
+        "Compilation",
+        "Encapsulation"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is the purpose of a constructor in a class?",
+      "options": [
+        "To define the data members of the class",
+        "To initialize the object's data members upon creation",
+        "To destroy the object",
+        "To define the methods of the class"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the concept of 'inheritance' in OOP?",
+      "options": [
+        "The ability of an object to take on many forms",
+        "The process of hiding the internal implementation details of an object",
+        "The mechanism by which a class derives properties and behaviors from another class",
+        "The act of grouping data and methods that operate on that data within a class"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which principle of OOP allows objects of different classes to respond to the same method call in their own way?",
+      "options": [
+        "Abstraction",
+        "Polymorphism",
+        "Encapsulation",
+        "Inheritance"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is 'encapsulation' in object-oriented programming?",
+      "options": [
+        "The process of creating multiple objects from a single class",
+        "Bundling data and methods that operate on that data within a class, and hiding internal implementation details",
+        "The ability to create new data types",
+        "The process of allocating memory for objects"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which access modifier provides the highest level of data hiding (making members accessible only within the class)?",
+      "options": [
+        "Public",
+        "Protected",
+        "Default",
+        "Private"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "What is the difference between 'method overloading' and 'method overriding'?",
+      "options": [
+        "Overloading is in the same class, overriding is in different classes; Overloading changes the method signature, overriding doesn't",
+        "Overloading is in different classes, overriding is in the same class; Overloading changes the method signature, overriding doesn't",
+        "Overloading is in the same class, overriding is in different classes; Overloading doesn't change the method signature, overriding does",
+        "Overloading changes the method signature, overriding doesn't; Both occur in the same class"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What is the role of 'static' members in a class?",
+      "options": [
+        "They can only be accessed by the class itself, not by objects of the class",
+        "They are unique to each object of the class",
+        "They are shared by all objects of the class and exist even if no objects are created",
+        "They are only accessible within the same package"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following is NOT a fundamental concept of OOP?",
+      "options": [
+        "Encapsulation",
+        "Polymorphism",
+        "Compilation",
+        "Inheritance"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "In OOP, what is the term for a class that inherits from another class?",
+      "options": [
+        "Subclass",
+        "Base class",
+        "Parent class",
+        "Child class"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What is encapsulation in OOP?",
+      "options": [
+        "Hiding the internal state and requiring all interaction to be performed through an object's methods",
+        "The ability of different classes to be treated as instances of the same class through a common interface",
+        "The process of defining a new class based on an existing class",
+        "The ability for an object to take on many forms"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following languages is known for its object-oriented features?",
+      "options": [
+        "C",
+        "Java",
+        "Assembly",
+        "HTML"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "In OOP, what is inheritance?",
+      "options": [
+        "The capability of an object to be derived from another object",
+        "The ability to create multiple instances of a class",
+        "The process of hiding data",
+        "The process of combining two or more classes into one"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What keyword is typically used to define a class in Java?",
+      "options": [
+        "define",
+        "class",
+        "create",
+        "object"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following best describes an abstract class?",
+      "options": [
+        "class that cannot be instantiated and can contain abstract methods",
+        "class that contains only concrete methods",
+        "class that is fully implemented",
+        "class that inherits from multiple classes"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which OOP concept allows a class to inherit properties and methods from another class?",
+      "options": [
+        "Abstraction",
+        "Polymorphism",
+        "Inheritance",
+        "Encapsulation"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What does 'Polymorphism' mean in the context of OOP?",
+      "options": [
+        "Having many forms",
+        "Hiding data",
+        "Creating objects",
+        "Defining classes"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "A class is a blueprint for creating:",
+      "options": [
+        "Variables",
+        "Functions",
+        "Objects",
+        "Loops"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which access modifier makes a class member accessible only within the same class?",
+      "options": [
+        "Public",
+        "Protected",
+        "Private",
+        "Internal"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is the relationship between a class and an object?",
+      "options": [
+        "class is an instance of an object",
+        "An object is an instance of a class",
+        "They are the same thing",
+        "They are unrelated"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following describes 'Abstraction' in OOP?",
+      "options": [
+        "Showing only essential information and hiding complex details",
+        "Combining data and methods into a single unit",
+        "Allowing objects of different classes to respond to the same method call in their own way",
+        "Creating multiple classes from a single class"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following represents 'method overloading'?",
+      "options": [
+        "Defining multiple classes with the same name",
+        "Defining multiple methods in the same class with the same name but different parameters",
+        "Defining a method in a subclass that overrides a method in its superclass",
+        "Defining a method outside the class"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the term for a class that cannot be instantiated?",
+      "options": [
+        "Abstract class",
+        "Interface",
+        "Static class",
+        "Final class"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following keywords is used to inherit a class in Java?",
+      "options": [
+        "inherits",
+        "extends",
+        "implements",
+        "super"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which OOP concept allows methods to do different things based on the object that it is acting upon?",
+      "options": [
+        "Inheritance",
+        "Polymorphism",
+        "Abstraction",
+        "Encapsulation"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "In OOP, what is a 'constructor'?",
+      "options": [
+        "method that initializes an object",
+        "method that destructs an object",
+        "method that inherits a class",
+        "method that creates a new class"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What is the purpose of an interface in OOP?",
+      "options": [
+        "To implement code",
+        "To define a contract for classes",
+        "To create objects",
+        "To encapsulate data"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is an example of polymorphism?",
+      "options": [
+        "Method overloading",
+        "Data hiding",
+        "Class inheritance",
+        "Object instantiation"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What is the main benefit of using inheritance in OOP?",
+      "options": [
+        "Code reuse",
+        "Data hiding",
+        "Increased complexity",
+        "Faster execution"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What does 'encapsulation' refer to in OOP?",
+      "options": [
+        "Wrapping data and methods that operate on that data within a single unit.",
+        "The ability of an object to take on many forms.",
+        "Hiding complex implementation details from the user.",
+        "Creating multiple objects from the same class."
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following is the most accurate description of 'polymorphism'?",
+      "options": [
+        "The ability of an object to have multiple states.",
+        "The ability of a method to perform different actions based on the object it is called on.",
+        "The ability of a class to inherit from multiple classes.",
+        "The process of hiding data from external access."
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the primary benefit of using 'abstraction' in OOP?",
+      "options": [
+        "Increased code complexity",
+        "Reduced code reusability",
+        "Simplified code maintenance",
+        "Direct access to all object data"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which keyword is commonly used to indicate inheritance in many OOP languages?",
+      "options": [
+        "include",
+        "extends",
+        "implements",
+        "inherit"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is an 'object' in the context of OOP?",
+      "options": [
+        "blueprint for creating data",
+        "collection of classes",
+        "An instance of a class",
+        "programming language paradigm"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is the purpose of using 'access modifiers' (e.g., private, public) in OOP?",
+      "options": [
+        "To define the data type of a variable.",
+        "To control the visibility and accessibility of class members.",
+        "To improve code execution speed.",
+        "To specify the memory allocation for an object."
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "In OOP, what is the purpose of encapsulation?",
+      "options": [
+        "To allow multiple forms of a method",
+        "To restrict access to certain components",
+        "To create a hierarchy of classes",
+        "To enable code reuse"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is a class in OOP?",
+      "options": [
+        "blueprint for creating objects",
+        "An instance of an object",
+        "function that returns an object",
+        "collection of functions"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following best describes polymorphism?",
+      "options": [
+        "The ability to create multiple classes",
+        "The ability of different classes to be treated as instances of the same class",
+        "The ability to inherit properties from another class",
+        "The process of hiding data"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is inheritance in OOP?",
+      "options": [
+        "The process of creating a new class from an existing class",
+        "The ability of a class to have multiple objects",
+        "The method of hiding data within a class",
+        "The implementation of interfaces"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which OOP concept allows methods to have the same name but behave differently based on object type?",
+      "options": [
+        "Abstraction",
+        "Encapsulation",
+        "Polymorphism",
+        "Inheritance"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is an object in OOP?",
+      "options": [
+        "variable that stores data",
+        "An instance of a class",
+        "function defined in a class",
+        "type of data structure"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following keywords is used to define a class in most programming languages?",
+      "options": [
+        "def",
+        "class",
+        "object",
+        "new"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What does the term 'abstraction' refer to in OOP?",
+      "options": [
+        "The process of hiding complex implementation details and showing only the essential features",
+        "The ability to create a subclass",
+        "The act of merging multiple classes",
+        "The technique of creating interfaces"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What is 'polymorphism' in the context of object-oriented programming?",
+      "options": [
+        "The ability of an object to take on many forms",
+        "The process of hiding data within a class",
+        "Creating multiple classes from a single class",
+        "The process of creating abstract classes"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following is a key advantage of using OOP?",
+      "options": [
+        "Increased execution speed",
+        "Simplified debugging and maintenance",
+        "Reduced memory consumption",
+        "Direct access to system hardware"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "In OOP, what is the term for a blueprint from which objects are created?",
+      "options": [
+        "Class",
+        "Object",
+        "Instance",
+        "Method"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following allows an object to take on many forms?",
+      "options": [
+        "Encapsulation",
+        "Abstraction",
+        "Polymorphism",
+        "Inheritance"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which keyword is used to define a class in most OOP languages?",
+      "options": [
+        "class",
+        "define",
+        "object",
+        "new"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What does 'inheritance' achieve in OOP?",
+      "options": [
+        "Data hiding",
+        "Code reusability",
+        "Polymorphism only",
+        "Data abstraction"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which concept allows objects of different classes to respond differently to the same method call?",
+      "options": [
+        "Abstraction",
+        "Encapsulation",
+        "Polymorphism",
+        "Inheritance"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following best describes 'encapsulation'?",
+      "options": [
+        "Grouping data and methods that operate on that data within a class",
+        "Creating multiple instances of a class",
+        "Allowing a class to inherit from multiple parent classes",
+        "Hiding implementation details from the user"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What is a 'constructor' in OOP?",
+      "options": [
+        "method used to destroy an object",
+        "method used to create a class",
+        "special method used to initialize an object",
+        "method used to access private data members"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is the primary advantage of using interfaces?",
+      "options": [
+        "They allow multiple inheritance of implementation",
+        "They enforce a specific contract for implementing classes",
+        "They automatically handle memory management",
+        "They provide default implementations for all methods"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following principles is closely associated with reducing complexity by hiding unnecessary details?",
+      "options": [
+        "Inheritance",
+        "Polymorphism",
+        "Abstraction",
+        "Encapsulation"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is 'method overriding'?",
+      "options": [
+        "Creating a new class based on an existing class",
+        "Defining a method in a subclass with the same name and signature as a method in its superclass",
+        "Hiding the implementation details of a method",
+        "Combining multiple methods into a single method"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "In OOP, what is 'encapsulation' mainly used for?",
+      "options": [
+        "To hide data",
+        "To inherit properties",
+        "To create objects",
+        "To define interfaces"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "In which OOP language is 'self' commonly used to refer to the instance of a class?",
+      "options": [
+        "Java",
+        "C++",
+        "Python",
+        "Ruby"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which type of inheritance allows a class to inherit from multiple classes?",
+      "options": [
+        "Single inheritance",
+        "Multilevel inheritance",
+        "Hierarchical inheritance",
+        "Multiple inheritance"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "Which of the following is NOT a type of access modifier in OOP?",
+      "options": [
+        "Public",
+        "Private",
+        "Protected",
+        "Static"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "What does 'polymorphism' primarily refer to in OOP?",
+      "options": [
+        "The ability of an object to take on many forms",
+        "The ability to hide data from unauthorized access",
+        "The process of breaking down a problem into smaller parts",
+        "The creation of multiple instances of a class"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which OOP concept focuses on hiding complex implementation details and showing only essential information?",
+      "options": [
+        "Inheritance",
+        "Abstraction",
+        "Polymorphism",
+        "Encapsulation"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which principle encourages loose coupling between objects?",
+      "options": [
+        "Tight Coupling",
+        "Cohesion",
+        "High Coupling",
+        "Abstraction"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "In OOP, what is encapsulation?",
+      "options": [
+        "Hiding the internal state of an object",
+        "Creating new classes from existing ones",
+        "Defining a method in a class",
+        "Interacting with multiple objects"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following is a feature of inheritance?",
+      "options": [
+        "Code reusability",
+        "Data hiding",
+        "Method overloading",
+        "Dynamic binding"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What does method overloading allow?",
+      "options": [
+        "Defining multiple methods with the same name but different parameters",
+        "Defining methods in different classes",
+        "Changing the access level of methods",
+        "Creating methods that return different types"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What is the significance of the 'this' keyword in OOP?",
+      "options": [
+        "It refers to the current object instance",
+        "It refers to the parent class",
+        "It is used to declare variables",
+        "It refers to all instances of a class"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What is the process of hiding internal implementation details and exposing only necessary information?",
+      "options": [
+        "Inheritance",
+        "Polymorphism",
+        "Abstraction",
+        "Encapsulation"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "In OOP, what is an object?",
+      "options": [
+        "blueprint for creating data",
+        "specific instance of a class",
+        "function definition",
+        "data type definition"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which access modifier provides the highest level of restriction?",
+      "options": [
+        "Public",
+        "Protected",
+        "Private",
+        "Default"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What does the term 'method overriding' refer to?",
+      "options": [
+        "Creating a new method with the same name in a derived class",
+        "Changing the method signature",
+        "Deleting a method from the base class",
+        "Adding a new method to the base class"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which term describes the process of creating an object from a class?",
+      "options": [
+        "Inheriting",
+        "Instantiating",
+        "Abstracting",
+        "Polymorphing"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which OOP principle focuses on representing essential features without including background details or explanations?",
+      "options": [
+        "Encapsulation",
+        "Inheritance",
+        "Abstraction",
+        "Polymorphism"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What does OOP stand for in programming?",
+      "options": [
+        "Object-Oriented Programming",
+        "Object-Operated Programming",
+        "Object-Optimized Programming",
+        "Object-Oriented Process"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following is a characteristic of an abstract class?",
+      "options": [
+        "Cannot be instantiated",
+        "Can only have abstract methods",
+        "Must have at least one method",
+        "Cannot have any properties"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following is an example of a design pattern closely related to OOP principles?",
+      "options": [
+        "Bubble Sort",
+        "Factory Pattern",
+        "Binary Search",
+        "Linear Regression"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the purpose of an abstract class?",
+      "options": [
+        "To create objects directly",
+        "To define a common interface for its subclasses",
+        "To prevent inheritance",
+        "To encapsulate all data within a single class"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "In which of the following scenarios would you use inheritance?",
+      "options": [
+        "When you want to extend the functionality of a class",
+        "When you want to hide data",
+        "When you want to create a new object",
+        "When you want to access private members"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which keyword is used in many OOP languages to create a class?",
+      "options": [
+        "class",
+        "create",
+        "define",
+        "object"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following statements about interfaces is true?",
+      "options": [
+        "An interface can have method implementations",
+        "An interface cannot have any methods",
+        "class can implement multiple interfaces",
+        "An interface can be instantiated directly"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following access modifiers provides the most restrictive access to a class member?",
+      "options": [
+        "Public",
+        "Protected",
+        "Private",
+        "Internal"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is the term for the mechanism of binding code and data together into a single unit?",
+      "options": [
+        "Inheritance",
+        "Polymorphism",
+        "Encapsulation",
+        "Abstraction"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "In OOP, what does inheritance allow a class to do?",
+      "options": [
+        "Access private variables of other classes",
+        "Create multiple instances of itself",
+        "Derive new classes from existing ones",
+        "Hide its implementation details"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following principles of OOP allows objects of different classes to be treated as objects of a common type?",
+      "options": [
+        "Encapsulation",
+        "Polymorphism",
+        "Inheritance",
+        "Abstraction"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the primary goal of data abstraction in OOP?",
+      "options": [
+        "To increase code complexity.",
+        "To hide complex implementation details and show only essential information.",
+        "To directly expose all internal data members.",
+        "To prevent the creation of new classes."
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is a constructor in object-oriented programming?",
+      "options": [
+        "method that is called when an object is created.",
+        "method that is called when an object is destroyed.",
+        "method that is used to access private data members.",
+        "method that is used to define the behavior of an object."
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which keyword is used to indicate that a method overrides a method in a superclass (parent class)?",
+      "options": [
+        "extends",
+        "implements",
+        "override",
+        "virtual"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is the difference between public and private access modifiers in OOP?",
+      "options": [
+        "Public members can only be accessed from within the class, while private members can be accessed from anywhere.",
+        "Private members can only be accessed from within the class, while public members can be accessed from anywhere.",
+        "There is no difference between public and private access modifiers.",
+        "Public members are only accessible to subclasses, while private members are not."
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "In OOP, what is a class?",
+      "options": [
+        "blueprint for creating objects",
+        "An instance of an object",
+        "type of function",
+        "variable type"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which concept allows you to create new classes from existing classes, inheriting their properties and methods?",
+      "options": [
+        "Aggregation",
+        "Composition",
+        "Inheritance",
+        "Association"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following concepts in OOP allows for the creation of a new class based on an existing class?",
+      "options": [
+        "Inheritance",
+        "Encapsulation",
+        "Polymorphism",
+        "Abstraction"
+      ],
+      "answer": "A"
+    }
+  ],
+  "OS": [
+    {
+      "question": "What does OS stand for in computing?",
+      "options": [
+        "Operating System",
+        "Online Software",
+        "Open Source",
+        "Output System"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following is an example of a real-time operating system?",
+      "options": [
+        "Windows",
+        "Linux",
+        "Android",
+        "VxWorks"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "Which component of an operating system manages memory allocation?",
+      "options": [
+        "File System",
+        "Process Scheduler",
+        "Memory Manager",
+        "Device Driver"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "In which year was the first version of UNIX released?",
+      "options": [
+        "1969",
+        "1971",
+        "1980",
+        "1991"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What is the primary function of the kernel in an operating system?",
+      "options": [
+        "User interface management",
+        "Hardware abstraction",
+        "Network management",
+        "Application execution"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following operating systems is open-source?",
+      "options": [
+        "Windows 10",
+        "macOS",
+        "Ubuntu",
+        "iOS"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is the main purpose of a device driver?",
+      "options": [
+        "To manage files",
+        "To enable communication between the OS and hardware",
+        "To schedule tasks",
+        "To provide a graphical interface"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which scheduling algorithm allocates the CPU to the process that has the smallest next CPU burst time?",
+      "options": [
+        "Round Robin",
+        "First-Come, First-Served",
+        "Shortest Job Next",
+        "Priority Scheduling"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "In a multi-user operating system, what is the term for a session initiated by a user?",
+      "options": [
+        "Process",
+        "Thread",
+        "Session",
+        "Instance"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following is the primary function of the OS kernel?",
+      "options": [
+        "Managing user applications",
+        "Providing a user interface",
+        "Managing system resources",
+        "Compiling source code"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is the purpose of a process control block (PCB)?",
+      "options": [
+        "To store user data",
+        "To control network traffic",
+        "To manage a process's information and state",
+        "To handle interrupts"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which scheduling algorithm assigns priorities to processes, and the process with the highest priority gets executed first?",
+      "options": [
+        "First-Come, First-Served (FCFS)",
+        "Shortest Job First (SJF)",
+        "Round Robin",
+        "Priority Scheduling"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "What is a 'deadlock' in the context of Operating Systems?",
+      "options": [
+        "situation where a process terminates unexpectedly",
+        "situation where two or more processes are blocked indefinitely, waiting for each other",
+        "memory management error",
+        "network connection failure"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is virtual memory?",
+      "options": [
+        "The physical RAM installed in the computer",
+        "technique that allows a program to exceed the size of physical RAM",
+        "Memory located on a network server",
+        "Memory used only by the operating system"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is NOT a typical file system operation?",
+      "options": [
+        "Create",
+        "Delete",
+        "Compile",
+        "Open"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is the purpose of an interrupt?",
+      "options": [
+        "To signal the start of a new process",
+        "To signal a system error",
+        "To interrupt the current process and handle an event",
+        "To increase the CPU clock speed"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is thrashing?",
+      "options": [
+        "type of virus",
+        "Excessive paging activity, resulting in poor performance",
+        "hardware malfunction",
+        "network security threat"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which operating system is known for its use in smartphones?",
+      "options": [
+        "Windows",
+        "Android",
+        "Ubuntu",
+        "Solaris"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What type of operating system allows multiple users to access the computer resources simultaneously?",
+      "options": [
+        "Single-user OS",
+        "Multi-user OS",
+        "Batch processing OS",
+        "Real-time OS"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following file systems is used by macOS?",
+      "options": [
+        "NTFS",
+        "ext4",
+        "APFS",
+        "FAT32"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "In operating systems, what does the term 'multitasking' refer to?",
+      "options": [
+        "Running multiple applications at the same time",
+        "Using multiple CPUs",
+        "Installing multiple OS on a single machine",
+        "Managing multiple users"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What is the purpose of system calls in an operating system?",
+      "options": [
+        "To communicate between applications",
+        "To access kernel services",
+        "To manage user accounts",
+        "To schedule tasks"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What does 'multitasking' in an operating system refer to?",
+      "options": [
+        "Running multiple operating systems on a single machine",
+        "Executing multiple tasks or processes concurrently",
+        "Managing multiple users simultaneously",
+        "Creating multiple file systems"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which scheduling algorithm assigns priority to processes based on their time spent waiting?",
+      "options": [
+        "First-Come, First-Served (FCFS)",
+        "Shortest Job First (SJF)",
+        "Round Robin",
+        "Priority Scheduling"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "What is the purpose of virtual memory?",
+      "options": [
+        "To increase the speed of the CPU",
+        "To allow programs to use more memory than is physically available",
+        "To provide a secure environment for running applications",
+        "To manage the file system efficiently"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the main function of a file system?",
+      "options": [
+        "To manage the CPU's instruction set",
+        "To organize and store files on a storage device",
+        "To control the network connection",
+        "To handle user authentication"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is a command-line operating system?",
+      "options": [
+        "Android",
+        "iOS",
+        "MS-DOS",
+        "Ubuntu with GNOME"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which OS is known for its use in servers and supercomputers?",
+      "options": [
+        "Windows",
+        "macOS",
+        "Linux",
+        "Android"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is the main purpose of a device driver in an operating system?",
+      "options": [
+        "To manage user accounts",
+        "To facilitate communication between the OS and hardware",
+        "To enhance security",
+        "To optimize software performance"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which command is used to list files in a Unix/Linux terminal?",
+      "options": [
+        "dir",
+        "ls",
+        "list",
+        "show"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which scheduling algorithm can lead to starvation?",
+      "options": [
+        "First-Come, First-Served (FCFS)",
+        "Shortest Job First (SJF)",
+        "Round Robin",
+        "Priority Scheduling"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "What does the acronym 'RAID' stand for in the context of storage management?",
+      "options": [
+        "Random Access Independent Disks",
+        "Redundant Array of Inexpensive Disks",
+        "Redundant Allocation of Integrated Devices",
+        "Reliable Access Integrated Devices"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is a key benefit of using virtual memory?",
+      "options": [
+        "Increased CPU speed",
+        "Ability to run programs larger than physical memory",
+        "Reduced power consumption",
+        "Elimination of disk fragmentation"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the difference between a 'process' and a 'thread'?",
+      "options": [
+        "process is a single unit of execution, while a thread is a collection of processes.",
+        "process is a lightweight unit of execution, while a thread is a heavyweight unit of execution.",
+        "process has its own memory space, while threads share the same memory space within a process.",
+        "There is no difference; the terms are interchangeable."
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is the primary purpose of a file system in an OS?",
+      "options": [
+        "To connect to the internet",
+        "To manage files and directories",
+        "To run applications",
+        "To enhance graphics performance"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "In a multitasking operating system, what is 'context switching'?",
+      "options": [
+        "Switching users",
+        "Switching applications",
+        "Switching between different processes",
+        "Switching hardware components"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is a kernel in an operating system?",
+      "options": [
+        "type of software application",
+        "The core component that manages system resources",
+        "user interface",
+        "network protocol"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What does the term 'booting' refer to in the context of an operating system?",
+      "options": [
+        "Starting a new application",
+        "Starting the computer and loading the OS",
+        "Shutting down the computer",
+        "Installing software updates"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is a graphical user interface (GUI) operating system?",
+      "options": [
+        "MS-DOS",
+        "Linux Command Line",
+        "Windows",
+        "UNIX terminal"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following memory management techniques reduces external fragmentation?",
+      "options": [
+        "Paging",
+        "Segmentation",
+        "First-fit allocation",
+        "Best-fit allocation"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which scheduling algorithm assigns priorities to processes?",
+      "options": [
+        "First-Come, First-Served (FCFS)",
+        "Shortest Job Next (SJN)",
+        "Priority Scheduling",
+        "Round Robin"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "In which OS is the kernel responsible for managing hardware resources?",
+      "options": [
+        "Network OS",
+        "User OS",
+        "System OS",
+        "Application OS"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which component of the OS is responsible for managing memory?",
+      "options": [
+        "File System",
+        "Process Management",
+        "Memory Management",
+        "Device Drivers"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is the main advantage of using a virtual machine in an OS?",
+      "options": [
+        "Increased hardware costs",
+        "Isolation of applications",
+        "Limited resource allocation",
+        "Reduced security"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which scheduling algorithm gives each process a fair share of CPU time?",
+      "options": [
+        "Shortest Job First (SJF)",
+        "Priority Scheduling",
+        "Round Robin",
+        "First Come First Serve (FCFS)"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which memory management technique reduces external fragmentation but can cause internal fragmentation?",
+      "options": [
+        "Segmentation",
+        "Paging",
+        "Virtual Memory",
+        "Swapping"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which file system is commonly used in Linux operating systems?",
+      "options": [
+        "FAT32",
+        "NTFS",
+        "ext4",
+        "HFS+"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which command in Unix/Linux is used to list files in a directory?",
+      "options": [
+        "ls",
+        "dir",
+        "list",
+        "show"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following is a process management technique used by operating systems?",
+      "options": [
+        "Paging",
+        "Fragmentation",
+        "Buffering",
+        "Caching"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "In which operating system model do multiple users share system resources?",
+      "options": [
+        "Single-user",
+        "Multi-user",
+        "Embedded",
+        "Distributed"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is a commonly used inter-process communication (IPC) mechanism?",
+      "options": [
+        "HTTP",
+        "FTP",
+        "Sockets",
+        "SMTP"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What does the term 'deadlock' refer to in Operating Systems?",
+      "options": [
+        "situation where a process has terminated unexpectedly",
+        "situation where a set of processes are blocked because each process is holding a resource and waiting for another resource held by some other process",
+        "security vulnerability that allows unauthorized access",
+        "type of hardware failure"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is a benefit of using a multi-threaded operating system?",
+      "options": [
+        "Reduced memory consumption",
+        "Improved performance and responsiveness",
+        "Simplified debugging",
+        "Increased security"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What does OS stand for in the context of computers?",
+      "options": [
+        "Operating System",
+        "Open Source",
+        "Optical Storage",
+        "Offline Software"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "In the context of operating systems, what does GUI stand for?",
+      "options": [
+        "General User Interface",
+        "Graphical User Interface",
+        "Graphical Unified Interface",
+        "Generalized User Interface"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which scheduling algorithm is designed to minimize waiting time for processes in a system?",
+      "options": [
+        "Round Robin",
+        "Shortest Job First",
+        "First-Come, First-Served",
+        "Priority Scheduling"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which operating system is known for its strong security features and is widely used in server environments?",
+      "options": [
+        "Windows 10",
+        "Linux",
+        "macOS",
+        "Android"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the purpose of a system call?",
+      "options": [
+        "To directly access hardware resources",
+        "To allow a user program to request services from the operating system kernel",
+        "To execute machine code directly",
+        "To manage network connections"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What does preemptive multitasking mean?",
+      "options": [
+        "task runs until it voluntarily relinquishes control of the CPU.",
+        "The operating system interrupts a task and switches to another one based on a scheduling algorithm.",
+        "Tasks run in a sequential order.",
+        "Multiple tasks run simultaneously on different cores."
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is a popular operating system for servers?",
+      "options": [
+        "Windows 10",
+        "macOS",
+        "Linux",
+        "Android"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which operating system is widely used on mobile devices?",
+      "options": [
+        "Windows",
+        "Linux",
+        "Android",
+        "Solaris"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is virtual memory in an operating system?",
+      "options": [
+        "temporary storage for files",
+        "memory management technique that uses disk space",
+        "type of physical memory",
+        "method to increase CPU speed"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the primary purpose of an operating system's kernel?",
+      "options": [
+        "To provide a user interface",
+        "To manage system resources",
+        "To enable internet connectivity",
+        "To store files"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is virtual memory primarily used for?",
+      "options": [
+        "Increasing the speed of the CPU",
+        "Allowing programs to use more memory than is physically available",
+        "Storing temporary files",
+        "Improving network connectivity"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is a real-time operating system (RTOS) mainly used for?",
+      "options": [
+        "Gaming and multimedia applications",
+        "Time-critical applications like industrial control systems",
+        "General-purpose computing tasks",
+        "Web browsing and email clients"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What does OS stand for?",
+      "options": [
+        "Operating System",
+        "Online Service",
+        "Open Source",
+        "Output System"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which memory management technique divides memory into variable-sized blocks?",
+      "options": [
+        "Paging",
+        "Segmentation",
+        "Swapping",
+        "Virtual Memory"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is a preemptive scheduling algorithm?",
+      "options": [
+        "First-Come, First-Served (FCFS)",
+        "Shortest Job Next (SJN)",
+        "Round Robin",
+        "All of the above"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following operating systems is primarily used on mobile devices?",
+      "options": [
+        "Linux",
+        "Windows",
+        "Android",
+        "macOS"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which command is used to list files in a directory in a Unix-like operating system?",
+      "options": [
+        "ls",
+        "dir",
+        "list",
+        "show"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What does 'paging' achieve in memory management?",
+      "options": [
+        "Allocating memory in contiguous blocks",
+        "Dividing memory into fixed-size blocks called pages, allowing non-contiguous allocation",
+        "Swapping entire processes to disk",
+        "Compressing memory to increase capacity"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is a system call?",
+      "options": [
+        "function call within a user program",
+        "An interface between a user program and the operating system kernel",
+        "command entered by the user",
+        "hardware interrupt"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "In which OS type would you most likely find a command line interface (CLI)?",
+      "options": [
+        "Graphical User Interface (GUI)",
+        "Real-time operating system",
+        "Batch operating system",
+        "All of the above"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is a virtual machine (VM)?",
+      "options": [
+        "physical computer",
+        "software-based emulation of a computer system",
+        "specific type of operating system",
+        "type of hardware component"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which part of the operating system manages hardware resources?",
+      "options": [
+        "User Interface",
+        "Kernel",
+        "Shell",
+        "File System"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is a type of operating system that allows multiple users to use the system simultaneously?",
+      "options": [
+        "Real-time OS",
+        "Batch OS",
+        "Time-sharing OS",
+        "Distributed OS"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which command in Unix/Linux is used to change the current directory?",
+      "options": [
+        "ls",
+        "cd",
+        "mv",
+        "rm"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the main function of the Kernel?",
+      "options": [
+        "Providing a user interface",
+        "Managing system resources and hardware",
+        "Running application software",
+        "Handling network communication"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is a context switch?",
+      "options": [
+        "The process of switching between different user accounts.",
+        "The process of switching between different programming languages.",
+        "The process of saving the state of a process and loading the state of another process.",
+        "The process of switching between different operating systems."
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What does 'API' stand for in the context of operating systems?",
+      "options": [
+        "Advanced Programming Interface",
+        "Application Programming Interface",
+        "Automatic Process Integration",
+        "Asynchronous Program Interaction"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of these components is NOT part of an operating system?",
+      "options": [
+        "Kernel",
+        "File System",
+        "Web Browser",
+        "Device Drivers"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which OS is known for its use in mobile devices?",
+      "options": [
+        "Windows Server",
+        "Linux Mint",
+        "Android",
+        "FreeBSD"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which OS uses the HFS+ file system?",
+      "options": [
+        "Windows",
+        "Linux",
+        "macOS",
+        "Android"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "In which layer of the operating system architecture does the kernel reside?",
+      "options": [
+        "User layer",
+        "System layer",
+        "Application layer",
+        "Hardware layer"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is a key function of the operating system's file management system?",
+      "options": [
+        "Allowing the user to run applications",
+        "Managing data storage and retrieval",
+        "Providing network services",
+        "Offering security"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which command is used to display the current working directory in Unix/Linux?",
+      "options": [
+        "pwd",
+        "dir",
+        "ls",
+        "cd"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What is a deadlock?",
+      "options": [
+        "situation where a process terminates abruptly",
+        "situation where two or more processes are blocked indefinitely, waiting for each other",
+        "type of hardware failure",
+        "form of memory corruption"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is a common operating system security mechanism?",
+      "options": [
+        "Kernel patching",
+        "Process termination",
+        "Resource allocation",
+        "User authentication"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "What is thrashing in the context of virtual memory?",
+      "options": [
+        "type of memory leak",
+        "state where the system spends excessive time swapping pages in and out of memory",
+        "CPU overheating issue",
+        "network communication error"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is a primary benefit of using a graphical user interface (GUI) in an operating system?",
+      "options": [
+        "Increased processing speed",
+        "Easier navigation and usability",
+        "Enhanced security",
+        "Better network performance"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which scheduling algorithm gives each process a fixed time slice and then moves on to the next?",
+      "options": [
+        "Shortest Job First (SJF)",
+        "First-Come, First-Served (FCFS)",
+        "Priority Scheduling",
+        "Round Robin"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "Which of the following is a characteristic of a multi-user operating system?",
+      "options": [
+        "It can only run one application at a time.",
+        "It allows multiple users to access the system concurrently.",
+        "It is designed for embedded systems only.",
+        "It has no user interface."
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which component of an OS manages hardware and software resources?",
+      "options": [
+        "User Interface",
+        "File Management",
+        "Kernel",
+        "Application Layer"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "In which type of operating system does the scheduler play a critical role?",
+      "options": [
+        "Real-time OS",
+        "Batch OS",
+        "Time-sharing OS",
+        "All of the above"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "What is the term for the technique of dividing memory into variable-sized partitions?",
+      "options": [
+        "Paging",
+        "Segmentation",
+        "Swapping",
+        "Buffering"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which scheduling algorithm gives each process a fixed time slice, and when the time slice is over, the process is preempted and added to the end of the ready queue?",
+      "options": [
+        "First-Come, First-Served (FCFS)",
+        "Shortest Job First (SJF)",
+        "Priority Scheduling",
+        "Round Robin"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "Which memory management technique allows a process to be broken up into non-contiguous blocks in physical memory?",
+      "options": [
+        "Contiguous allocation",
+        "Virtual memory",
+        "Paging",
+        "Swapping"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is the name of the process that allows multiple applications to run simultaneously in an operating system?",
+      "options": [
+        "Multitasking",
+        "Threading",
+        "Compiling",
+        "Caching"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which operating system is known for its open-source nature and high customization?",
+      "options": [
+        "Windows",
+        "macOS",
+        "Linux",
+        "Android"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following is NOT a primary function of a kernel in an operating system?",
+      "options": [
+        "Resource management",
+        "Hardware abstraction",
+        "Providing a graphical user interface",
+        "Process management"
+      ],
+      "answer": "C"
+    }
+  ],
+  "Networking": [
+    {
+      "question": "What does TCP stand for in networking?",
+      "options": [
+        "Transmission Control Protocol",
+        "Transfer Control Protocol",
+        "Transport Communication Protocol",
+        "Transmission Communication Protocol"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which layer of the OSI model is responsible for routing?",
+      "options": [
+        "Application",
+        "Transport",
+        "Network",
+        "Data Link"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is the primary function of a router?",
+      "options": [
+        "To connect multiple devices within a local network",
+        "To forward data packets between networks",
+        "To encrypt data for secure transmission",
+        "To provide wireless connectivity"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which protocol is used for secure communication over a computer network?",
+      "options": [
+        "HTTP",
+        "FTP",
+        "HTTPS",
+        "SMTP"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What does the acronym DHCP stand for?",
+      "options": [
+        "Dynamic Host Configuration Protocol",
+        "Data Host Control Protocol",
+        "Dynamic Hypertext Control Protocol",
+        "Data Hypertext Configuration Protocol"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which device is used to extend the range of a wireless signal?",
+      "options": [
+        "Hub",
+        "Repeater",
+        "Switch",
+        "Firewall"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "In which layer of the OSI model does SSL/TLS operate?",
+      "options": [
+        "Application",
+        "Presentation",
+        "Session",
+        "Transport"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the purpose of a subnet mask?",
+      "options": [
+        "To identify the network portion of an IP address",
+        "To encrypt data packets",
+        "To specify the maximum transmission unit",
+        "To manage the flow of data packets"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following is a benefit of using a VPN?",
+      "options": [
+        "Improved internet speed",
+        "Increased security and privacy",
+        "Reduced latency",
+        "Unlimited bandwidth"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What does the term 'latency' refer to in networking?",
+      "options": [
+        "The amount of data that can be transmitted in a given time",
+        "The delay before a transfer of data begins",
+        "The total bandwidth of a network",
+        "The number of devices connected to a network"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which layer of the OSI model is responsible for providing reliable, ordered, and error-checked delivery of data between applications?",
+      "options": [
+        "Application Layer",
+        "Transport Layer",
+        "Network Layer",
+        "Data Link Layer"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the purpose of a MAC address?",
+      "options": [
+        "To identify a network protocol",
+        "To uniquely identify a network interface controller (NIC)",
+        "To determine the path data takes across the internet",
+        "To define the network topology"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is a connection-oriented protocol?",
+      "options": [
+        "UDP",
+        "IP",
+        "ICMP",
+        "TCP"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "Which networking device operates primarily at Layer 3 (Network Layer) of the OSI model?",
+      "options": [
+        "Hub",
+        "Switch",
+        "Router",
+        "Bridge"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is the main difference between a hub and a switch?",
+      "options": [
+        "hub forwards data only to the destination device, while a switch broadcasts data to all devices",
+        "hub operates at Layer 3 while a switch operates at Layer 2",
+        "switch forwards data only to the destination device, while a hub broadcasts data to all devices",
+        "switch can only handle one connection at a time, while a hub can handle multiple connections simultaneously"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following is a private IP address range?",
+      "options": [
+        "10.0.0.0 - 10.255.255.255",
+        "172.16.0.0 - 172.31.255.255",
+        "192.168.0.0 - 192.168.255.255",
+        "All of the above"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "What is the role of a firewall in a network?",
+      "options": [
+        "To increase network speed",
+        "To prevent unauthorized access to a network",
+        "To translate IP addresses",
+        "To provide wireless connectivity"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which technology allows multiple devices to share a single public IP address?",
+      "options": [
+        "DHCP",
+        "DNS",
+        "NAT",
+        "VPN"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What topology connects all devices to a single central hub?",
+      "options": [
+        "Star Topology",
+        "Ring Topology",
+        "Bus Topology",
+        "Mesh Topology"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which protocol is used to send email messages?",
+      "options": [
+        "FTP",
+        "SMTP",
+        "HTTP",
+        "SNMP"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the main purpose of a firewall?",
+      "options": [
+        "To increase bandwidth",
+        "To provide encryption",
+        "To block unauthorized access",
+        "To manage IP addresses"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which device is used to connect two or more networks and route traffic between them?",
+      "options": [
+        "Switch",
+        "Hub",
+        "Router",
+        "Repeater"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is the main function of DNS in networking?",
+      "options": [
+        "To translate domain names to IP addresses",
+        "To provide dynamic IP addresses",
+        "To encrypt data packets",
+        "To manage email servers"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which type of cable is commonly used for high-speed network connections?",
+      "options": [
+        "Coaxial Cable",
+        "Fiber Optic Cable",
+        "Twisted Pair Cable",
+        "HDMI Cable"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following network topologies uses a central hub or switch to connect all devices?",
+      "options": [
+        "Bus",
+        "Ring",
+        "Star",
+        "Mesh"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which protocol is responsible for resolving a domain name (e.g., www.example.com) to an IP address?",
+      "options": [
+        "HTTP",
+        "FTP",
+        "DNS",
+        "SMTP"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What does OSI stand for in the context of the OSI model?",
+      "options": [
+        "Open System Interface",
+        "Open Systems Interconnection",
+        "Operating System Interconnection",
+        "Operating System Interface"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What does VPN stand for?",
+      "options": [
+        "Virtual Personal Network",
+        "Virtual Private Network",
+        "Very Public Network",
+        "Visual Private Network"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is a common networking device?",
+      "options": [
+        "Switch",
+        "Monitor",
+        "Keyboard",
+        "Printer"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What does the term 'bandwidth' refer to?",
+      "options": [
+        "The amount of data that can be transmitted in a given time",
+        "The distance between two network nodes",
+        "The number of devices connected to a network",
+        "The speed of a single connection"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which protocol is primarily used for securing data transmitted over the internet?",
+      "options": [
+        "HTTP",
+        "FTP",
+        "HTTPS",
+        "IP"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "In the OSI model, which layer is responsible for routing?",
+      "options": [
+        "Transport",
+        "Network",
+        "Data Link",
+        "Physical"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which layer of the OSI model is responsible for reliable end-to-end data transmission?",
+      "options": [
+        "Transport Layer",
+        "Network Layer",
+        "Session Layer",
+        "Data Link Layer"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which network topology connects all devices to a central hub or switch?",
+      "options": [
+        "Bus Topology",
+        "Ring Topology",
+        "Star Topology",
+        "Mesh Topology"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is the purpose of a DNS server?",
+      "options": [
+        "To translate domain names into IP addresses",
+        "To provide network security",
+        "To route network traffic",
+        "To manage network bandwidth"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following is a common network security device that examines network traffic and blocks suspicious activity?",
+      "options": [
+        "Hub",
+        "Firewall",
+        "Repeater",
+        "Bridge"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following wireless standards offers the highest theoretical data transfer rate?",
+      "options": [
+        "802.11b",
+        "802.11g",
+        "802.11n",
+        "802.11ax"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "Which of the following is a common security protocol for wireless networks?",
+      "options": [
+        "HTTP",
+        "FTP",
+        "WPA2",
+        "SMTP"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "In networking, what does NAT stand for?",
+      "options": [
+        "Network Address Translation",
+        "Network Access Terminal",
+        "Network Allocation Table",
+        "Network Application Technology"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which device is used to connect multiple devices within a local area network (LAN)?",
+      "options": [
+        "Router",
+        "Switch",
+        "Hub",
+        "Modem"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which layer of the OSI model is responsible for reliable communication between end devices?",
+      "options": [
+        "Network Layer",
+        "Transport Layer",
+        "Data Link Layer",
+        "Session Layer"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which command is used to test network connectivity?",
+      "options": [
+        "ipconfig",
+        "tracert",
+        "ping",
+        "netstat"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What type of address is used to identify devices on a network?",
+      "options": [
+        "IP Address",
+        "MAC Address",
+        "URL",
+        "DNS"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What is the primary purpose of a router in a network?",
+      "options": [
+        "To connect devices within a local network",
+        "To filter incoming and outgoing traffic",
+        "To route data between different networks",
+        "To provide wireless connectivity"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is the maximum length of a CAT5 Ethernet cable for reliable performance?",
+      "options": [
+        "50 meters",
+        "100 meters",
+        "200 meters",
+        "300 meters"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which protocol is used to resolve domain names to IP addresses?",
+      "options": [
+        "DHCP",
+        "DNS",
+        "FTP",
+        "ICMP"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which device is used to connect multiple devices on a network and forwards data based on MAC addresses?",
+      "options": [
+        "Switch",
+        "Hub",
+        "Router",
+        "Modem"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following protocols is used for sending emails?",
+      "options": [
+        "TCP",
+        "IP",
+        "SMTP",
+        "HTTP"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which network topology connects each device directly to every other device?",
+      "options": [
+        "Star",
+        "Bus",
+        "Mesh",
+        "Ring"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which layer of the OSI model is responsible for data encryption and decryption?",
+      "options": [
+        "Transport Layer",
+        "Session Layer",
+        "Presentation Layer",
+        "Application Layer"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What type of cable is commonly used for high-speed data transmission and is immune to electromagnetic interference?",
+      "options": [
+        "Coaxial Cable",
+        "Twisted Pair Cable",
+        "Fiber Optic Cable",
+        "Serial Cable"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which protocol is used to dynamically assign IP addresses to devices on a network?",
+      "options": [
+        "FTP",
+        "DHCP",
+        "SNMP",
+        "Telnet"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which layer of the OSI model is responsible for end-to-end communication control?",
+      "options": [
+        "Application Layer",
+        "Transport Layer",
+        "Network Layer",
+        "Data Link Layer"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the maximum length of a CAT5e Ethernet cable?",
+      "options": [
+        "100 meters",
+        "200 meters",
+        "50 meters",
+        "150 meters"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following is a characteristic of TCP (Transmission Control Protocol)?",
+      "options": [
+        "Connectionless protocol",
+        "Unreliable data transfer",
+        "Guaranteed delivery of data in the correct order",
+        "Low overhead compared to UDP"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of these IP addresses belongs to the private IP address range?",
+      "options": [
+        "10.0.0.1",
+        "172.168.0.1",
+        "192.168.1.254",
+        "All of the above"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "Which protocol is commonly used for sending emails?",
+      "options": [
+        "HTTP",
+        "FTP",
+        "SMTP",
+        "DHCP"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is the function of a firewall in network security?",
+      "options": [
+        "To provide wireless connectivity",
+        "To prevent unauthorized access to a network or computer system",
+        "To accelerate network speeds",
+        "To translate domain names to IP addresses"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is NOT a common wireless networking standard?",
+      "options": [
+        "802.11a",
+        "802.11b",
+        "802.11g",
+        "802.3u"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "Which command is used to check the connectivity between two network devices?",
+      "options": [
+        "ping",
+        "traceroute",
+        "ipconfig",
+        "netstat"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following is the primary function of the network layer?",
+      "options": [
+        "Reliable data transport",
+        "Establishing and terminating connections",
+        "Routing packets from source to destination",
+        "Error detection and correction"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What does the acronym 'DNS' stand for in the context of networking?",
+      "options": [
+        "Digital Network System",
+        "Domain Name System",
+        "Dynamic Network Service",
+        "Data Network Server"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which network topology features a central node that all other nodes connect to?",
+      "options": [
+        "Mesh",
+        "Ring",
+        "Bus",
+        "Star"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "Which of the following is an example of a network hardware device?",
+      "options": [
+        "Operating System",
+        "Web Browser",
+        "Router",
+        "Antivirus Software"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What device connects multiple networks and directs data traffic between them?",
+      "options": [
+        "Switch",
+        "Hub",
+        "Router",
+        "Repeater"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which topology has a single central cable to which all network devices are connected?",
+      "options": [
+        "Star Topology",
+        "Bus Topology",
+        "Ring Topology",
+        "Mesh Topology"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which protocol is used for reliable, connection-oriented data transmission?",
+      "options": [
+        "UDP",
+        "IP",
+        "TCP",
+        "ICMP"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following is a MAC address primarily used for?",
+      "options": [
+        "Network security authentication",
+        "Routing packets between different networks",
+        "Identifying a device on the same network segment",
+        "Assigning IP addresses to devices"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following is a type of network topology?",
+      "options": [
+        "HTTP",
+        "SMTP",
+        "Bus",
+        "FTP"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is a VLAN?",
+      "options": [
+        "physical network segment",
+        "virtual local area network",
+        "very large area network",
+        "type of network cable"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the function of the ARP protocol?",
+      "options": [
+        "To resolve IP addresses to MAC addresses",
+        "To resolve MAC addresses to IP addresses",
+        "To encrypt network data",
+        "To detect network intrusions"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following is a layer in the OSI model?",
+      "options": [
+        "Physical",
+        "Digital",
+        "Static",
+        "Application Layer"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following represents the default port number for HTTP?",
+      "options": [
+        "80",
+        "443",
+        "21",
+        "25"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "What is the purpose of NAT in networking?",
+      "options": [
+        "To assign IP addresses",
+        "To provide security",
+        "To allow multiple devices to share a single IP address",
+        "To encrypt data"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following topologies is characterized by a central hub or switch?",
+      "options": [
+        "Star topology",
+        "Mesh topology",
+        "Ring topology",
+        "Bus topology"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which protocol is commonly used for secure remote access to a server?",
+      "options": [
+        "Telnet",
+        "FTP",
+        "SSH",
+        "HTTP"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which protocol is used for securely accessing a computer over an unsecured network?",
+      "options": [
+        "FTP",
+        "HTTP",
+        "SSH",
+        "SMTP"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What kind of address is an IP address?",
+      "options": [
+        "Physical Address",
+        "Logical Address",
+        "Permanent Address",
+        "Temporary Address"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What does the term 'IP address' stand for?",
+      "options": [
+        "Internet Provider Address",
+        "Internet Protocol Address",
+        "Internal Protocol Address",
+        "Interconnected Packet Address"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "In a local area network (LAN), what device is primarily used to connect multiple devices?",
+      "options": [
+        "Hub",
+        "Switch",
+        "Router",
+        "Modem"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which device is used to create a separate network segment for better security?",
+      "options": [
+        "Switch",
+        "Firewall",
+        "Hub",
+        "Repeater"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which type of cable is most commonly used for high-speed data transfer in wired networks?",
+      "options": [
+        "Coaxial Cable",
+        "Twisted Pair Cable",
+        "Fiber Optic Cable",
+        "Parallel Cable"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "In a star topology network, which device connects all nodes?",
+      "options": [
+        "Switch",
+        "Hub",
+        "Router",
+        "Bridge"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following is a common networking protocol used for email transmission?",
+      "options": [
+        "IMAP",
+        "DNS",
+        "HTTP",
+        "ICMP"
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "Which of the following devices operates at Layer 2 (Data Link Layer) of the OSI model?",
+      "options": [
+        "Router",
+        "Hub",
+        "Switch",
+        "Gateway"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is the function of a firewall?",
+      "options": [
+        "To increase network speed",
+        "To provide wireless connectivity",
+        "To filter network traffic based on predefined rules",
+        "To translate domain names to IP addresses"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following cable types is commonly used for high-speed Ethernet connections?",
+      "options": [
+        "Coaxial Cable",
+        "Fiber Optic Cable",
+        "Twisted Pair Cable",
+        "Serial Cable"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which device is used to connect multiple networks?",
+      "options": [
+        "Switch",
+        "Hub",
+        "Router",
+        "Repeater"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following is NOT a valid IP address range for a private network?",
+      "options": [
+        "10.0.0.0 - 10.255.255.255",
+        "172.16.0.0 - 172.31.255.255",
+        "192.168.0.0 - 192.168.255.255",
+        "192.0.0.0 - 192.0.0.255"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "What is the maximum transmission unit (MTU)?",
+      "options": [
+        "The smallest packet size allowed on a network",
+        "The largest packet size allowed on a network",
+        "The average packet size on a network",
+        "security protocol for encrypting packets"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What type of attack involves intercepting data sent over a network?",
+      "options": [
+        "Denial of Service",
+        "Man-in-the-Middle",
+        "Phishing",
+        "Malware"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which IP address range is reserved for private networks?",
+      "options": [
+        "10.0.0.0 - 10.255.255.255",
+        "172.16.0.0 - 172.31.255.255",
+        "192.168.0.0 - 192.168.255.255",
+        "All of the above"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "Which protocol is used for secure web communication?",
+      "options": [
+        "HTTP",
+        "FTP",
+        "SMTP",
+        "HTTPS"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "Which of the following topologies connects all devices to a central hub?",
+      "options": [
+        "Ring Topology",
+        "Star Topology",
+        "Mesh Topology",
+        "Bus Topology"
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which of the following is a layer 2 protocol responsible for addressing and delivering data within a local network?",
+      "options": [
+        "IP",
+        "TCP",
+        "Ethernet",
+        "HTTP"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following network topologies provides the highest level of redundancy?",
+      "options": [
+        "Star",
+        "Bus",
+        "Ring",
+        "Mesh"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "Which of the following is a common port number used for HTTP traffic?",
+      "options": [
+        "21",
+        "22",
+        "80",
+        "443"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "Which of the following network topologies offers the highest redundancy and fault tolerance due to multiple pathways for data transmission?",
+      "options": [
+        "Bus Topology",
+        "Star Topology",
+        "Ring Topology",
+        "Mesh Topology"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "What is the primary function of a DNS (Domain Name System) server?",
+      "options": [
+        "To assign IP addresses to devices on a network.",
+        "To translate domain names into IP addresses.",
+        "To filter network traffic based on predefined rules.",
+        "To manage user authentication and access control."
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What protocol is primarily used for transferring files over the Internet?",
+      "options": [
+        "FTP",
+        "SMTP",
+        "HTTP",
+        "SNMP"
+      ],
+      "answer": "A"
+    }
+  ]
+}
