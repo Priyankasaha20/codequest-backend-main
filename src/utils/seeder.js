@@ -10,8 +10,14 @@ const seedDatabase = async () => {
     console.log("🌱 Starting database seeding...");
 
     // Read the question bank JSON file
-    const questionBankPath = path.join(process.cwd(), "assets", "question_bank_100_fixed.json");
-    const questionBankData = JSON.parse(fs.readFileSync(questionBankPath, "utf8"));
+    const questionBankPath = path.join(
+      process.cwd(),
+      "assets",
+      "question_bank_100_fixed.json"
+    );
+    const questionBankData = JSON.parse(
+      fs.readFileSync(questionBankPath, "utf8")
+    );
 
     // Find or create a system user for seeding
     let [systemUser] = await db
@@ -44,7 +50,6 @@ const seedDatabase = async () => {
         console.log(`⚠️  Quiz for topic ${topic} already exists, skipping...`);
         continue;
       } else {
-
         [quiz] = await db
           .insert(quizzes)
           .values({
@@ -57,12 +62,13 @@ const seedDatabase = async () => {
         console.log(`✅ Created quiz: ${quiz.title}`);
       }
 
-
       const validQuestions = questionsData.filter(
         (q) => q.question && q.options && q.answer
       );
 
-      console.log(`📝 Found ${validQuestions.length} valid questions out of ${questionsData.length} total`);
+      console.log(
+        `📝 Found ${validQuestions.length} valid questions out of ${questionsData.length} total`
+      );
 
       const questionInserts = validQuestions.map((questionData) => ({
         quizId: quiz.id,
@@ -73,7 +79,9 @@ const seedDatabase = async () => {
 
       if (questionInserts.length > 0) {
         await db.insert(questions).values(questionInserts);
-        console.log(`✅ Inserted ${questionInserts.length} questions for ${topic}`);
+        console.log(
+          `✅ Inserted ${questionInserts.length} questions for ${topic}`
+        );
       }
     }
 
@@ -83,7 +91,6 @@ const seedDatabase = async () => {
     process.exit(1);
   }
 };
-
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   seedDatabase()
