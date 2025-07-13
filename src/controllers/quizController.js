@@ -6,7 +6,6 @@ export const getQuizQuestions = async (req, res) => {
   try {
     const { topic, count = 10 } = req.query;
 
-    // Validate count parameter
     const questionCount = parseInt(count, 10);
     if (isNaN(questionCount) || questionCount < 1 || questionCount > 50) {
       return res.status(400).json({
@@ -18,7 +17,7 @@ export const getQuizQuestions = async (req, res) => {
     let quizQuestions;
 
     if (topic) {
-      // Get quiz for specific topic
+
       [quiz] = await db.select().from(quizzes).where(eq(quizzes.topic, topic));
 
       if (!quiz) {
@@ -27,7 +26,6 @@ export const getQuizQuestions = async (req, res) => {
         });
       }
 
-      // Get random questions for this specific quiz
       quizQuestions = await db
         .select({
           id: questions.id,
@@ -39,7 +37,7 @@ export const getQuizQuestions = async (req, res) => {
         .orderBy(sql`RANDOM()`)
         .limit(questionCount);
     } else {
-      // Random questions from all topics
+
       quizQuestions = await db
         .select({
           id: questions.id,
@@ -56,7 +54,6 @@ export const getQuizQuestions = async (req, res) => {
         .orderBy(sql`RANDOM()`)
         .limit(questionCount);
 
-      // For random questions, create a mixed quiz object
       quiz = {
         id: "mixed",
         title: "Mixed Topics Quiz",
