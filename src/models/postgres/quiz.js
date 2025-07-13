@@ -29,8 +29,8 @@ export const questions = pgTable("questions", {
     .notNull()
     .references(() => quizzes.id, { onDelete: "cascade" }),
   question: text("question").notNull(),
-  options: json("options").notNull(), // JSON object with A, B, C, D keys
-  answer: varchar("answer", { length: 1 }).notNull(), // A, B, C, or D
+  options: json("options").notNull(),
+  answer: varchar("answer", { length: 1 }).notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
