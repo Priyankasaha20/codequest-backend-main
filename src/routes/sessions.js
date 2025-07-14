@@ -1,7 +1,7 @@
 import { Router } from "express";
 import {
   startSession,
-  submitTextAnswer,
+  submitAnswer,
   completeSession,
   getResults,
 } from "../controllers/sessionsController.js";
@@ -14,7 +14,7 @@ const router = Router();
 router.post("/start", isAuth, startSession);
 
 // Submit text answer for a question (Option A: client-side STT)
-router.post("/:sessionId/answer", isAuth, submitTextAnswer);
+router.post("/:sessionId/answer", isAuth, submitAnswer);
 
 // Complete the session: score + feedback + summary
 router.post("/:sessionId/complete", isAuth, completeSession);

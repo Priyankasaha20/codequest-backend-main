@@ -25,27 +25,25 @@ export const startSession = async (req, res, next) => {
   }
 };
 
-export const handleAudioChunk = async (req, res, next) => {
+export const submitAnswer = async (req, res, next) => {
   try {
-    const { sessionId } = req.params;
-    const { questionIndex } = req.body;
-    const audioBuffer = req.file.buffer;
+    const { id } = req.params;
+    const { questionIndex, answer } = req.body;
+    const session = await Session.findById(id);
+    if (!session) {
+      return res.status(404).json({ error: "Session not found" });
+    }
 
-    // transcribe to text
-    const text = await speechService.transcribe(audioBuffer);
-
-    // append answer
-    const session = await Session.findById(sessionId);
-    if (!session) return res.status(404).json({ error: "Session not found" });
-
-    session.answers.push({ questionIndex, text });
+    // Add the text answer directly to the session (no need for audio processing)
+    session.answers.push({ questionIndex, text: answer });
     await session.save();
 
-    res.json({ text });
+    res.json({ text: answer, received: true });
   } catch (err) {
     next(err);
   }
 };
+
 
 export const completeSession = async (req, res, next) => {
   try {
@@ -102,25 +100,6 @@ export const getResults = async (req, res, next) => {
   }
 };
 
-export const submitTextAnswer = async (req, res, next) => {
-  try {
-    const { sessionId } = req.params;
-    const { questionIndex, text } = req.body;
-
-    const session = await Session.findById(sessionId);
-    if (!session) {
-      return res.status(404).json({ error: "Session not found" });
-    }
-
-    // Append the user's text answer
-    session.answers.push({ questionIndex, text });
-    await session.save();
-
-    res.json({ received: text });
-  } catch (err) {
-    next(err);
-  }
-};
 
 export const getUserSessions = async (req, res, next) => {
   try {
@@ -134,29 +113,3 @@ export const getUserSessions = async (req, res, next) => {
   }
 };
 
-export const submitAnswer = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const { questionIndex, answer } = req.body;
-    const audioBuffer = req.file?.buffer;
-
-    const session = await Session.findById(id);
-    if (!session) {
-      return res.status(404).json({ error: "Session not found" });
-    }
-
-    // If audio is provided, transcribe it
-    let text = answer;
-    if (audioBuffer) {
-      text = await speechService.transcribe(audioBuffer);
-    }
-
-    // Add the answer to the session
-    session.answers.push({ questionIndex, text });
-    await session.save();
-
-    res.json({ text, received: true });
-  } catch (err) {
-    next(err);
-  }
-};
