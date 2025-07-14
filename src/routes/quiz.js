@@ -1,5 +1,9 @@
 import express from "express";
-import { getQuizQuestions } from "../controllers/quizController.js";
+import {
+  startQuiz,
+  getQuizQuestion,
+  submitQuizAnswer,
+} from "../controllers/quizController.js";
 import { isAuth } from "../middleware/auth.js";
 
 const router = express.Router();
@@ -11,67 +15,102 @@ const router = express.Router();
  *   description: Quiz management endpoints
  */
 
+
 /**
  * @swagger
- * /quiz/questions:
+ * /quiz/start:
+ *   post:
+ *     tags:
+ *       - Quiz
+ *     summary: Start a new quiz session
+ *     security:
+ *       - cookieAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               topic:
+ *                 type: string
+ *                 enum: [DBMS, OOPS, OS, Networking]
+ *                 description: Topic for the quiz (optional, random if not provided)
+ *               count:
+ *                 type: integer
+ *                 minimum: 1
+ *                 maximum: 50
+ *                 default: 10
+ *                 description: Number of questions (max 50)
+ *     responses:
+ *       '200':
+ *         description: Quiz session started successfully
+ *       '401':
+ *         description: Authentication required
+ */
+router.post("/start", isAuth, startQuiz);
+
+/**
+ * @swagger
+ * /quiz/{quizSessionId}/question:
  *   get:
  *     tags:
  *       - Quiz
- *     summary: Get quiz questions based on topic or random
+ *     summary: Get current question for the quiz session
  *     security:
  *       - cookieAuth: []
  *     parameters:
- *       - in: query
- *         name: topic
+ *       - in: path
+ *         name: quizSessionId
+ *         required: true
  *         schema:
  *           type: string
- *           enum: [DBMS, OOPS, OS, Networking]
- *         description: Topic for the quiz (optional, random if not provided)
- *       - in: query
- *         name: count
- *         schema:
- *           type: integer
- *           minimum: 1
- *           maximum: 50
- *           default: 10
- *         description: Number of questions to fetch (max 50)
+ *         description: Quiz session ID
  *     responses:
  *       '200':
- *         description: Quiz questions retrieved successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 quiz:
- *                   type: object
- *                   properties:
- *                     id:
- *                       type: integer
- *                     title:
- *                       type: string
- *                     topic:
- *                       type: string
- *                 questions:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       id:
- *                         type: integer
- *                       question:
- *                         type: string
- *                       options:
- *                         type: object
- *                 totalQuestions:
- *                   type: integer
- *       '400':
- *         description: Invalid parameters
- *       '401':
- *         description: Authentication required
+ *         description: Current question retrieved successfully
  *       '404':
- *         description: No questions found for the specified topic
+ *         description: Quiz session not found
  */
-router.get("/questions", isAuth, getQuizQuestions);
+router.get("/:quizSessionId/question", isAuth, getQuizQuestion);
+
+/**
+ * @swagger
+ * /quiz/{quizSessionId}/answer:
+ *   post:
+ *     tags:
+ *       - Quiz
+ *     summary: Submit answer for current question
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: quizSessionId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Quiz session ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               answer:
+ *                 type: string
+ *                 enum: [A, B, C, D]
+ *                 description: Selected answer option
+ *             required:
+ *               - answer
+ *     responses:
+ *       '200':
+ *         description: Answer submitted successfully
+ *       '400':
+ *         description: Invalid answer or quiz completed
+ *       '404':
+ *         description: Quiz session not found
+ */
+router.post("/:quizSessionId/answer", isAuth, submitQuizAnswer);
 
 export default router;
