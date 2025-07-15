@@ -14,6 +14,7 @@ router.use("/profile", profileRoutes);
 router.use("/media", mediaRoutes);
 
 router.use("/quiz", quizRoutes);
+
 router.use("/", judgeRoutes);
 
 router.get("/health", (req, res) => {

@@ -1,4 +1,4 @@
- import axios from "axios";
+import axios from "axios";
 
 // In-memory store for submissions (token -> metadata)
 export const submissions = new Map();
@@ -166,6 +166,9 @@ export function getAllSubmissions(req, res) {
 
 // POST /submissions/callback
 export function handleCallback(req, res) {
+  console.log("Received Judge0 callback:", req.body);
+
+  
   const { token, stdout = "", stderr = "", status } = req.body;
   if (!token) {
     return res.status(400).json({ error: "Token is required in callback" });
