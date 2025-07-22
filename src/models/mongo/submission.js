@@ -38,7 +38,6 @@ const submissionSchema = new mongoose.Schema(
         type: String,
         required: true,
         unique: true,
-        index: true,
         description: "Judge0 submission tokens",
       },
     ],

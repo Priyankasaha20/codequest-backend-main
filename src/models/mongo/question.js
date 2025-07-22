@@ -180,7 +180,6 @@ const questionSchema = new mongoose.Schema(
 // ==================== INDEXES ====================
 
 // Primary indexes for common queries
-questionSchema.index({ slug: 1 }); // Unique lookup
 questionSchema.index({ isActive: 1, difficulty: 1 }); // Browse by difficulty
 questionSchema.index({ category: 1, isActive: 1 }); // Browse by category
 questionSchema.index({ tags: 1, isActive: 1 }); // Search by tags

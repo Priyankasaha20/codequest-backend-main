@@ -24,6 +24,7 @@ class QuestionService {
       category,
       tags,
       search,
+      contestId,
       limit = 50,
       skip = 0,
       sortBy = "createdAt",
@@ -39,6 +40,10 @@ class QuestionService {
 
     if (category) {
       query.category = category;
+    }
+
+    if (contestId) {
+      query.contestId = contestId;
     }
 
     if (tags) {

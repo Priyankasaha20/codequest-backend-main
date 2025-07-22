@@ -1,13 +1,7 @@
 import express from "express";
 import {
   getQuestions,
-  getQuestionBySlug,
-  getQuestionById,
-  getQuestionsByDifficulty,
-  getQuestionsByCategory,
-  searchQuestions,
-  getRandomQuestion,
-  getContestQuestions,
+  getQuestionByIdOrSlug,
   getQuestionStats,
   getCategories,
   getDifficultyLevels,
@@ -118,12 +112,34 @@ import {
  *         totalSubmissions:
  *           type: number
  *           default: 0
+ *           description: Total number of submissions for this question
  *         acceptedSubmissions:
  *           type: number
  *           default: 0
+ *           description: Number of accepted submissions
  *         acceptanceRate:
  *           type: number
  *           default: 0
+ *           description: Acceptance rate percentage (0-100)
+ *         averageExecutionTime:
+ *           type: number
+ *           description: Average execution time in milliseconds
+ *         averageMemoryUsage:
+ *           type: number
+ *           description: Average memory usage in KB
+ *     TestCase:
+ *       type: object
+ *       properties:
+ *         input:
+ *           type: string
+ *           description: Test case input data
+ *         expectedOutput:
+ *           type: string
+ *           description: Expected output for the test case
+ *         isHidden:
+ *           type: boolean
+ *           default: false
+ *           description: Whether this test case is hidden from users during practice
  *     QuestionResponse:
  *       type: object
  *       properties:
@@ -179,7 +195,21 @@ import {
  * @swagger
  * tags:
  *   name: Questions
- *   description: Question management endpoints
+ *   description: |
+ *     Comprehensive question management system for coding challenges.
+ *
+ *     **Features:**
+ *     - LeetCode-style coding problems
+ *     - Flexible filtering and search
+ *     - Difficulty-based categorization
+ *     - Tag-based organization
+ *     - Contest support
+ *     - Statistics tracking
+ *     - Admin management tools
+ *
+ *     **API Consolidation:**
+ *     This API uses a consolidated approach with query parameters instead of multiple endpoints.
+ *     All filtering operations are handled through the main `/questions` endpoint.
  */
 
 const router = express.Router();
@@ -192,8 +222,25 @@ const router = express.Router();
  *   get:
  *     tags:
  *       - Questions
- *     summary: Get all active questions with optional filtering and pagination
- *     description: Retrieve a paginated list of active questions with optional filters for difficulty, category, tags, and search
+ *     summary: Get questions with flexible filtering
+ *     description: |
+ *       Retrieve questions with various filtering options via query parameters.
+ *       Consolidates multiple specific endpoints into one flexible endpoint.
+ *
+ *       **Filtering Options:**
+ *       - `difficulty={level}` - Filter by difficulty (Easy, Medium, Hard)
+ *       - `category={category}` - Filter by category
+ *       - `contest={contestId}` - Filter by contest ID
+ *       - `search={text}` - Search in title/description/tags
+ *       - `random=true` - Get a random question
+ *       - `random=true&difficulty={level}` - Get random question by difficulty
+ *       - `tags={tag1,tag2}` - Filter by tags
+ *
+ *       **Pagination & Sorting:**
+ *       - `limit={number}` - Number of results (default: 50)
+ *       - `skip={number}` - Number to skip (default: 0)
+ *       - `sortBy={field}` - Sort field (createdAt, difficulty, title, acceptanceRate, popularity)
+ *       - `sortOrder={asc|desc}` - Sort order (default: desc)
  *     parameters:
  *       - in: query
  *         name: difficulty
@@ -205,36 +252,48 @@ const router = express.Router();
  *         name: category
  *         schema:
  *           type: string
- *         description: Filter by category (Array, String, etc.)
+ *         description: Filter by category
+ *       - in: query
+ *         name: contest
+ *         schema:
+ *           type: string
+ *         description: Filter by contest ID
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *           minLength: 2
+ *         description: Search text (minimum 2 characters)
+ *       - in: query
+ *         name: random
+ *         schema:
+ *           type: boolean
+ *         description: Get random question(s)
  *       - in: query
  *         name: tags
  *         schema:
  *           type: string
  *         description: Filter by tags (comma-separated)
  *       - in: query
- *         name: search
- *         schema:
- *           type: string
- *         description: Search in title, description, and tags
- *       - in: query
  *         name: limit
  *         schema:
  *           type: integer
- *           default: 20
  *           minimum: 1
  *           maximum: 100
- *         description: Number of questions per page
+ *           default: 50
+ *         description: Number of questions to return
  *       - in: query
  *         name: skip
  *         schema:
  *           type: integer
- *           default: 0
  *           minimum: 0
+ *           default: 0
  *         description: Number of questions to skip
  *       - in: query
  *         name: sortBy
  *         schema:
  *           type: string
+ *           enum: [createdAt, difficulty, title, acceptanceRate, popularity]
  *           default: createdAt
  *         description: Field to sort by
  *       - in: query
@@ -250,7 +309,9 @@ const router = express.Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/QuestionsListResponse'
+ *               oneOf:
+ *                 - $ref: '#/components/schemas/QuestionsListResponse'
+ *                 - $ref: '#/components/schemas/QuestionResponse'
  *       400:
  *         description: Invalid query parameters
  *         content:
@@ -282,12 +343,7 @@ router.get("/", getQuestions);
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
- *                 message:
- *                   type: string
- *                 data:
+ *                 categories:
  *                   type: array
  *                   items:
  *                     type: string
@@ -317,12 +373,7 @@ router.get("/categories", getCategories);
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
- *                 message:
- *                   type: string
- *                 data:
+ *                 difficulties:
  *                   type: array
  *                   items:
  *                     type: string
@@ -352,12 +403,7 @@ router.get("/difficulties", getDifficultyLevels);
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
- *                 message:
- *                   type: string
- *                 data:
+ *                 stats:
  *                   type: object
  *                   properties:
  *                     totalProblems:
@@ -386,312 +432,26 @@ router.get("/stats", getQuestionStats);
 
 /**
  * @swagger
- * /questions/search:
+ * /questions/{id}:
  *   get:
  *     tags:
  *       - Questions
- *     summary: Search questions by text
- *     description: Search for questions using text that matches title, description, or tags
- *     parameters:
- *       - in: query
- *         name: q
- *         required: true
- *         schema:
- *           type: string
- *         description: Search query text
- *       - in: query
- *         name: limit
- *         schema:
- *           type: integer
- *           default: 20
- *           minimum: 1
- *           maximum: 100
- *         description: Maximum number of results
- *     responses:
- *       200:
- *         description: Search results retrieved successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
- *                 message:
- *                   type: string
- *                 data:
- *                   type: array
- *                   items:
- *                     $ref: '#/components/schemas/Question'
- *       400:
- *         description: Search query is required
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- *       500:
- *         description: Internal server error
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
-router.get("/search", searchQuestions);
-
-/**
- * @swagger
- * /questions/random:
- *   get:
- *     tags:
- *       - Questions
- *     summary: Get a random question with optional difficulty filter
- *     description: Retrieve a random question, optionally filtered by difficulty level
- *     parameters:
- *       - in: query
- *         name: difficulty
- *         schema:
- *           type: string
- *           enum: [Easy, Medium, Hard]
- *         description: Filter by difficulty level
- *     responses:
- *       200:
- *         description: Random question retrieved successfully
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/QuestionResponse'
- *       404:
- *         description: No questions found matching criteria
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- *       500:
- *         description: Internal server error
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
-router.get("/random", getRandomQuestion);
-
-/**
- * @swagger
- * /questions/difficulty/{level}:
- *   get:
- *     tags:
- *       - Questions
- *     summary: Get questions by difficulty level
- *     description: Retrieve questions filtered by a specific difficulty level
- *     parameters:
- *       - in: path
- *         name: level
- *         required: true
- *         schema:
- *           type: string
- *           enum: [Easy, Medium, Hard]
- *         description: Difficulty level to filter by
- *       - in: query
- *         name: limit
- *         schema:
- *           type: integer
- *           default: 20
- *           minimum: 1
- *           maximum: 100
- *         description: Maximum number of results
- *     responses:
- *       200:
- *         description: Questions retrieved successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
- *                 message:
- *                   type: string
- *                 data:
- *                   type: array
- *                   items:
- *                     $ref: '#/components/schemas/Question'
- *       400:
- *         description: Invalid difficulty level
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- *       500:
- *         description: Internal server error
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
-router.get("/difficulty/:level", getQuestionsByDifficulty);
-
-/**
- * @swagger
- * /questions/category/{category}:
- *   get:
- *     tags:
- *       - Questions
- *     summary: Get questions by category
- *     description: Retrieve questions filtered by a specific category
- *     parameters:
- *       - in: path
- *         name: category
- *         required: true
- *         schema:
- *           type: string
- *         description: Category to filter by (e.g., Array, String, Tree)
- *       - in: query
- *         name: limit
- *         schema:
- *           type: integer
- *           default: 20
- *           minimum: 1
- *           maximum: 100
- *         description: Maximum number of results
- *     responses:
- *       200:
- *         description: Questions retrieved successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
- *                 message:
- *                   type: string
- *                 data:
- *                   type: array
- *                   items:
- *                     $ref: '#/components/schemas/Question'
- *       400:
- *         description: Invalid category
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- *       500:
- *         description: Internal server error
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
-router.get("/category/:category", getQuestionsByCategory);
-
-/**
- * @swagger
- * /questions/contest/{contestId}:
- *   get:
- *     tags:
- *       - Questions
- *     summary: Get questions for a specific contest
- *     description: Retrieve all questions associated with a specific contest
- *     parameters:
- *       - in: path
- *         name: contestId
- *         required: true
- *         schema:
- *           type: string
- *         description: Contest identifier
- *     responses:
- *       200:
- *         description: Contest questions retrieved successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
- *                 message:
- *                   type: string
- *                 data:
- *                   type: array
- *                   items:
- *                     $ref: '#/components/schemas/Question'
- *       404:
- *         description: Contest not found or no questions for this contest
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- *       500:
- *         description: Internal server error
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
-router.get("/contest/:contestId", getContestQuestions);
-
-/**
- * @swagger
- * /questions/id/{id}:
- *   get:
- *     tags:
- *       - Questions
- *     summary: Get a specific question by MongoDB ID
- *     description: Retrieve a question using its MongoDB ObjectId
+ *     summary: Get a specific question by ID or slug
+ *     description: Retrieve a question using either its MongoDB ObjectId or URL-friendly slug identifier
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: MongoDB ObjectId of the question
- *     responses:
- *       200:
- *         description: Question retrieved successfully
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/QuestionResponse'
- *       400:
- *         description: Invalid question ID format
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- *       404:
- *         description: Question not found
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- *       500:
- *         description: Internal server error
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
-router.get("/id/:id", getQuestionById);
-
-/**
- * @swagger
- * /questions/{slug}:
- *   get:
- *     tags:
- *       - Questions
- *     summary: Get a specific question by slug
- *     description: Retrieve a question using its URL-friendly slug identifier
- *     parameters:
- *       - in: path
- *         name: slug
- *         required: true
- *         schema:
- *           type: string
- *         description: URL-friendly slug of the question
+ *         description: MongoDB ObjectId or slug of the question
+ *         examples:
+ *           objectId:
+ *             summary: MongoDB ObjectId
+ *             value: "507f1f77bcf86cd799439011"
+ *           slug:
+ *             summary: URL-friendly slug
+ *             value: "two-sum"
  *     responses:
  *       200:
  *         description: Question retrieved successfully
@@ -712,7 +472,7 @@ router.get("/id/:id", getQuestionById);
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.get("/:slug", getQuestionBySlug);
+router.get("/:id", getQuestionByIdOrSlug);
 
 // ==================== ADMIN ROUTES ====================
 
