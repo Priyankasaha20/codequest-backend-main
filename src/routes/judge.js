@@ -6,7 +6,9 @@ import {
   handleCallback,
   getUserSubmissions,
   getUserStats,
-  getProblemSubmissions,
+  getQuestionSubmissions,
+  getRecentSubmissions,
+  getQuestionLeaderboard,
 } from "../controllers/judgeController.js";
 
 const router = express.Router();
@@ -204,6 +206,50 @@ router.get("/submissions/stats/:userId", getUserStats);
  *       200:
  *         description: Problem submissions
  */
-router.get("/submissions/problem/:problemId", getProblemSubmissions);
+router.get("/submissions/question/:questionId", getQuestionSubmissions);
+
+/**
+ * @swagger
+ * /judge/submissions/recent:
+ *   get:
+ *     summary: Get recent submissions
+ *     tags: [Judge]
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 20
+ *         description: Number of recent submissions to return
+ *     responses:
+ *       200:
+ *         description: Recent submissions
+ */
+router.get("/submissions/recent", getRecentSubmissions);
+
+/**
+ * @swagger
+ * /judge/leaderboard/question/{questionId}:
+ *   get:
+ *     summary: Get question leaderboard
+ *     tags: [Judge]
+ *     parameters:
+ *       - in: path
+ *         name: questionId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Question ID
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 100
+ *         description: Number of leaderboard entries to return
+ *     responses:
+ *       200:
+ *         description: Question leaderboard
+ */
+router.get("/leaderboard/question/:questionId", getQuestionLeaderboard);
 
 export default router;

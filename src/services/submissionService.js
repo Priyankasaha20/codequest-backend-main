@@ -1,308 +1,488 @@
 import Submission from "../models/mongo/submission.js";
+import QuestionService from "./questionService.js";
+import axios from "axios";
 
 /**
- * Service class for handling Judge0 submissions with MongoDB persistence
+ * Submission Service - Handles all submission-related operations
+ * Completely MongoDB-based with no in-memory storage
  */
+
 class SubmissionService {
+  constructor() {
+    this.judge0Host = process.env.JUDGE0_HOST || "localhost";
+    this.judge0Port = process.env.JUDGE0_PORT || "2358";
+    this.judge0Url = `http://${this.judge0Host}:${this.judge0Port}`;
+  }
+
   /**
-   * Create a new submission record in MongoDB
-   * @param {Object} submissionData - The submission data
-   * @param {number} submissionData.userId - PostgreSQL user ID
-   * @param {string} submissionData.code - Source code
-   * @param {number} submissionData.languageId - Judge0 language ID
-   * @param {string} submissionData.languageName - Language name
-   * @param {string|undefined} submissionData.stdin - Input for single submission
-   * @param {string|undefined} submissionData.expectedOutput - Expected output for single submission
-   * @param {Array|undefined} submissionData.testcases - Test cases for batch submission
-   * @param {Array} submissionData.tokens - Judge0 tokens
-   * @param {string|undefined} submissionData.problemId - Problem identifier
-   * @param {string|undefined} submissionData.contestId - Contest identifier
-   * @returns {Promise<Submission>} Created submission document
+   * Create a submission (alternative interface for compatibility)
    */
-  static async createSubmission(submissionData) {
+  async createSubmission(submissionData) {
     const {
       userId,
       code,
       languageId,
-      languageName,
+      questionId,
+      tokens,
       stdin,
       expectedOutput,
       testcases,
-      tokens,
-      problemId,
-      contestId,
     } = submissionData;
 
-    const submissionType =
-      testcases && testcases.length > 0 ? "batch" : "single";
-
-    const submission = new Submission({
-      userId,
-      tokens,
-      sourceCode: code,
-      language: {
-        id: languageId,
-        name: languageName || this.getLanguageName(languageId),
-      },
-      submissionType,
-      stdin: submissionType === "single" ? stdin || "" : "",
-      expectedOutput: submissionType === "single" ? expectedOutput || "" : "",
-      testCases:
-        submissionType === "batch"
-          ? testcases.map((tc) => ({
-              stdin: tc.stdin || "",
-              expectedOutput: tc.expectedOutput,
-              status: { id: 1, description: "In Queue" },
-              verdict: "Pending",
-            }))
-          : [],
-      problemId,
-      contestId,
-      judge0Data: {
-        submittedAt: new Date(),
-      },
-    });
-
-    return await submission.save();
-  }
-
-  /**
-   * Update submission with Judge0 response data
-   * @param {string} token - Judge0 submission token
-   * @param {Object} judge0Response - Response from Judge0 API
-   * @returns {Promise<Submission|null>} Updated submission or null if not found
-   */
-  static async updateSubmissionFromJudge0(token, judge0Response) {
-    const submission = await Submission.findByToken(token);
-    if (!submission) {
-      return null;
-    }
-
-    const updateData = {
-      status: judge0Response.status || submission.status,
-      stdout: judge0Response.stdout || "",
-      stderr: judge0Response.stderr || "",
-      executionTime: judge0Response.time,
-      memoryUsed: judge0Response.memory,
-      compileOutput: judge0Response.compile_output || "",
+    // Convert languageId to language name for internal consistency
+    const languageMap = {
+      71: "python",
+      63: "javascript",
+      62: "java",
+      54: "cpp",
+      50: "c",
     };
 
-    if (judge0Response.finished_at) {
-      updateData.isCompleted = true;
-      updateData.completedAt = new Date();
-      updateData.judge0Data = {
-        ...submission.judge0Data,
-        finishedAt: new Date(judge0Response.finished_at),
-        wallTime: judge0Response.wall_time,
-        cpuTime: judge0Response.cpu_time,
-      };
+    const language = languageMap[languageId] || "python";
+
+    try {
+      const submission = await Submission.create({
+        questionId,
+        userId,
+        code,
+        language,
+        status: {
+          id: 1, // In Queue
+          description: "In Queue",
+        },
+        tokens: tokens || [],
+        isCompleted: false,
+        stdin: stdin,
+        expectedOutput: expectedOutput,
+        testCases: testcases,
+        submissionType: testcases ? "batch" : "single",
+      });
+
+      return submission;
+    } catch (error) {
+      console.error("Create submission error:", error);
+      throw error;
     }
-
-    // Calculate verdict for single submissions
-    if (
-      submission.submissionType === "single" &&
-      judge0Response.status?.description === "Accepted"
-    ) {
-      updateData.verdict =
-        updateData.stdout?.trim() === submission.expectedOutput?.trim()
-          ? "Accepted"
-          : "Wrong Answer";
-    } else if (
-      judge0Response.status?.description &&
-      judge0Response.status.description !== "Accepted"
-    ) {
-      updateData.verdict = judge0Response.status.description;
-    }
-
-    Object.assign(submission, updateData);
-    return await submission.save();
-  }
-
-  /**
-   * Update batch submission with multiple Judge0 responses
-   * @param {Array} tokens - Array of Judge0 tokens
-   * @param {Array} judge0Responses - Array of Judge0 responses
-   * @returns {Promise<Submission|null>} Updated submission or null if not found
-   */
-  static async updateBatchSubmission(tokens, judge0Responses) {
-    // Find submission that contains all these tokens
-    const submission = await Submission.findOne({
-      tokens: { $all: tokens },
-    });
-
-    if (!submission) {
-      return null;
-    }
-
-    return await submission.updateBatchResults(judge0Responses);
   }
 
   /**
    * Get submission by token
-   * @param {string} token - Judge0 submission token
-   * @returns {Promise<Submission|null>} Submission document or null
    */
-  static async getSubmissionByToken(token) {
-    return await Submission.findByToken(token);
+  async getSubmissionByToken(token) {
+    try {
+      const submission = await Submission.findOne({
+        tokens: { $in: [token] },
+      })
+        .populate("questionId", "title slug difficulty")
+        .lean();
+
+      return submission;
+    } catch (error) {
+      console.error("Get submission by token error:", error);
+      throw error;
+    }
   }
 
   /**
-   * Get submissions by user ID
-   * @param {number} userId - PostgreSQL user ID
-   * @param {number} limit - Number of submissions to return
-   * @param {number} skip - Number of submissions to skip
-   * @returns {Promise<Array>} Array of submission documents
+   * Submit code for execution
    */
-  static async getSubmissionsByUser(userId, limit = 50, skip = 0) {
-    return await Submission.find({ userId })
-      .sort({ createdAt: -1 })
-      .limit(limit)
-      .skip(skip);
-  }
-
-  /**
-   * Count total submissions for a user
-   * @param {number} userId - PostgreSQL user ID
-   * @returns {Promise<number>} Total number of submissions
-   */
-  static async countUserSubmissions(userId) {
-    return await Submission.countDocuments({ userId });
-  }
-
-  /**
-   * Get submissions by problem ID
-   * @param {string} problemId - Problem identifier
-   * @param {number|null} userId - Optional user ID filter
-   * @returns {Promise<Array>} Array of submission documents
-   */
-  static async getSubmissionsByProblem(problemId, userId = null) {
-    return await Submission.findByProblem(problemId, userId);
-  }
-
-  /**
-   * Get user submission statistics
-   * @param {number} userId - PostgreSQL user ID
-   * @returns {Promise<Object>} Statistics object
-   */
-  static async getUserStats(userId) {
-    const stats = await Submission.getSubmissionStats(userId);
-    const total = await Submission.countDocuments({
-      userId,
-      isCompleted: true,
-    });
-
-    const formattedStats = {
-      total,
-      accepted: 0,
-      wrongAnswer: 0,
-      timeLimit: 0,
-      runtimeError: 0,
-      compilationError: 0,
-      other: 0,
-    };
-
-    stats.forEach((stat) => {
-      switch (stat._id) {
-        case "Accepted":
-          formattedStats.accepted = stat.count;
-          break;
-        case "Wrong Answer":
-          formattedStats.wrongAnswer = stat.count;
-          break;
-        case "Time Limit Exceeded":
-          formattedStats.timeLimit = stat.count;
-          break;
-        case "Runtime Error":
-        case "Runtime Error (SIGSEGV)":
-        case "Runtime Error (SIGXFSZ)":
-        case "Runtime Error (SIGFPE)":
-        case "Runtime Error (SIGABRT)":
-        case "Runtime Error (NZEC)":
-        case "Runtime Error (Other)":
-          formattedStats.runtimeError += stat.count;
-          break;
-        case "Compilation Error":
-          formattedStats.compilationError = stat.count;
-          break;
-        default:
-          formattedStats.other += stat.count;
+  async submitCode({ questionId, userId, code, language }) {
+    try {
+      // Validate that the question exists
+      const question = await QuestionService.getQuestionById(questionId);
+      if (!question) {
+        throw new Error("Question not found");
       }
-    });
 
-    return formattedStats;
+      // Prepare submission for Judge0
+      const judge0Payload = {
+        source_code: code,
+        language_id: this.getLanguageId(language),
+        stdin: "", // Will be set per test case
+        expected_output: "", // Will be set per test case
+      };
+
+      // Create submission record
+      const submission = await Submission.create({
+        questionId,
+        userId,
+        code,
+        language,
+        status: {
+          id: 1, // In Queue
+          description: "In Queue",
+        },
+        tokens: [], // Will store Judge0 tokens for each test case
+        isCompleted: false,
+      });
+
+      // Submit each test case to Judge0
+      const testCases = question.testCases || [];
+      const judge0Submissions = [];
+
+      for (const testCase of testCases) {
+        const testPayload = {
+          ...judge0Payload,
+          stdin: testCase.input,
+          expected_output: testCase.expectedOutput,
+        };
+
+        try {
+          const response = await axios.post(
+            `${this.judge0Url}/submissions`,
+            testPayload,
+            {
+              headers: { "Content-Type": "application/json" },
+              timeout: 10000,
+            }
+          );
+
+          judge0Submissions.push({
+            token: response.data.token,
+            testCaseIndex: testCases.indexOf(testCase),
+            isHidden: testCase.isHidden,
+          });
+        } catch (error) {
+          console.error("Judge0 submission error:", error);
+          // Continue with other test cases even if one fails
+        }
+      }
+
+      // Update submission with Judge0 tokens
+      submission.tokens = judge0Submissions.map((sub) => sub.token);
+      submission.judge0Data = {
+        submissions: judge0Submissions,
+        totalTestCases: testCases.length,
+      };
+      await submission.save();
+
+      return submission;
+    } catch (error) {
+      console.error("Submit code error:", error);
+      throw error;
+    }
   }
 
   /**
-   * Clean up old submissions (called periodically)
-   * @param {number} maxAge - Maximum age in milliseconds
-   * @returns {Promise<number>} Number of deleted submissions
+   * Update submission with Judge0 results
    */
-  static async cleanupOldSubmissions(maxAge = 30 * 24 * 60 * 60 * 1000) {
-    // 30 days default
-    const cutoffDate = new Date(Date.now() - maxAge);
-    const result = await Submission.deleteMany({
-      createdAt: { $lt: cutoffDate },
-      isCompleted: true,
-    });
-    return result.deletedCount;
+  async updateSubmissionFromJudge0(submissionId, judge0Results) {
+    try {
+      const submission = await Submission.findById(submissionId);
+      if (!submission) {
+        throw new Error("Submission not found");
+      }
+
+      // Process Judge0 results
+      let allPassed = true;
+      let totalExecutionTime = 0;
+      let totalMemoryUsed = 0;
+      let validResults = 0;
+
+      const results = judge0Results.map((result) => {
+        if (result.status?.id === 3) {
+          // Accepted
+          totalExecutionTime += result.time ? parseFloat(result.time) : 0;
+          totalMemoryUsed += result.memory ? parseFloat(result.memory) : 0;
+          validResults++;
+        } else {
+          allPassed = false;
+        }
+        return result;
+      });
+
+      // Update submission
+      submission.judge0Data.results = results;
+      submission.isCompleted = true;
+      submission.completedAt = new Date();
+      submission.isCorrect = allPassed;
+
+      // Calculate averages
+      if (validResults > 0) {
+        submission.executionTime = totalExecutionTime / validResults;
+        submission.memoryUsed = totalMemoryUsed / validResults;
+      }
+
+      // Set overall status based on results
+      if (allPassed) {
+        submission.status = {
+          id: 3,
+          description: "Accepted",
+        };
+        submission.verdict = "Accepted";
+      } else {
+        // Find the most relevant error status
+        const errorResult = results.find((r) => r.status?.id !== 3);
+        submission.status = errorResult?.status || {
+          id: 6,
+          description: "Compilation Error",
+        };
+        submission.verdict = errorResult?.status?.description || "Wrong Answer";
+      }
+
+      await submission.save();
+
+      // Update question statistics
+      if (submission.questionId) {
+        await QuestionService.updateQuestionStats(submission.questionId, {
+          isAccepted: allPassed,
+          executionTime: submission.executionTime,
+          memoryUsed: submission.memoryUsed,
+        });
+      }
+
+      return submission;
+    } catch (error) {
+      console.error("Update submission error:", error);
+      throw error;
+    }
   }
 
   /**
-   * Get language name by ID (basic mapping)
-   * @param {number} languageId - Judge0 language ID
-   * @returns {string} Language name
+   * Get submission by ID
    */
-  static getLanguageName(languageId) {
+  async getSubmission(submissionId) {
+    try {
+      const submission = await Submission.findById(submissionId)
+        .populate("questionId", "title slug difficulty")
+        .lean();
+      return submission;
+    } catch (error) {
+      console.error("Get submission error:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get submissions by user
+   */
+  async getSubmissionsByUser(userId, options = {}) {
+    try {
+      const { limit = 50, offset = 0, questionId } = options;
+
+      const filter = { userId };
+      if (questionId) {
+        filter.questionId = questionId;
+      }
+
+      const submissions = await Submission.find(filter)
+        .populate("questionId", "title slug difficulty")
+        .sort({ createdAt: -1 })
+        .limit(limit)
+        .skip(offset)
+        .lean();
+
+      return submissions;
+    } catch (error) {
+      console.error("Get user submissions error:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get submissions by question
+   */
+  async getSubmissionsByQuestion(questionId, options = {}) {
+    try {
+      const { limit = 100, userId } = options;
+
+      const filter = { questionId };
+      if (userId) {
+        filter.userId = userId;
+      }
+
+      const submissions = await Submission.find(filter)
+        .populate("userId", "name email")
+        .sort({ createdAt: -1 })
+        .limit(limit)
+        .lean();
+
+      return submissions;
+    } catch (error) {
+      console.error("Get question submissions error:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get recent submissions
+   */
+  async getRecentSubmissions(limit = 20) {
+    try {
+      const submissions = await Submission.find()
+        .populate("questionId", "title slug difficulty")
+        .populate("userId", "name email")
+        .sort({ createdAt: -1 })
+        .limit(limit)
+        .lean();
+
+      return submissions;
+    } catch (error) {
+      console.error("Get recent submissions error:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get user statistics
+   */
+  async getUserStats(userId) {
+    try {
+      const stats = await Submission.aggregate([
+        { $match: { userId: userId } },
+        {
+          $group: {
+            _id: null,
+            totalSubmissions: { $sum: 1 },
+            acceptedSubmissions: {
+              $sum: { $cond: [{ $eq: ["$isCorrect", true] }, 1, 0] },
+            },
+            averageExecutionTime: { $avg: "$executionTime" },
+            averageMemoryUsed: { $avg: "$memoryUsed" },
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            totalSubmissions: 1,
+            acceptedSubmissions: 1,
+            acceptanceRate: {
+              $cond: [
+                { $eq: ["$totalSubmissions", 0] },
+                0,
+                {
+                  $multiply: [
+                    { $divide: ["$acceptedSubmissions", "$totalSubmissions"] },
+                    100,
+                  ],
+                },
+              ],
+            },
+            averageExecutionTime: { $round: ["$averageExecutionTime", 2] },
+            averageMemoryUsed: { $round: ["$averageMemoryUsed", 2] },
+          },
+        },
+      ]);
+
+      return (
+        stats[0] || {
+          totalSubmissions: 0,
+          acceptedSubmissions: 0,
+          acceptanceRate: 0,
+          averageExecutionTime: 0,
+          averageMemoryUsed: 0,
+        }
+      );
+    } catch (error) {
+      console.error("Get user stats error:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get question leaderboard
+   */
+  async getQuestionLeaderboard(questionId, limit = 100) {
+    try {
+      const leaderboard = await Submission.aggregate([
+        {
+          $match: {
+            questionId: questionId,
+            isCorrect: true,
+            isCompleted: true,
+          },
+        },
+        {
+          $sort: {
+            executionTime: 1,
+            memoryUsed: 1,
+            createdAt: 1,
+          },
+        },
+        {
+          $group: {
+            _id: "$userId",
+            bestSubmission: { $first: "$$ROOT" },
+          },
+        },
+        {
+          $replaceRoot: { newRoot: "$bestSubmission" },
+        },
+        {
+          $lookup: {
+            from: "users",
+            localField: "userId",
+            foreignField: "_id",
+            as: "user",
+          },
+        },
+        {
+          $unwind: "$user",
+        },
+        {
+          $project: {
+            userId: 1,
+            userName: "$user.name",
+            userEmail: "$user.email",
+            executionTime: 1,
+            memoryUsed: 1,
+            language: 1,
+            createdAt: 1,
+          },
+        },
+        {
+          $limit: limit,
+        },
+      ]);
+
+      return leaderboard;
+    } catch (error) {
+      console.error("Get question leaderboard error:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Convert language name to Judge0 language ID
+   */
+  getLanguageId(language) {
     const languageMap = {
-      45: "Assembly (NASM 2.14.02)",
-      46: "Bash (5.0.0)",
-      47: "Basic (FBC 1.07.1)",
-      75: "C (Clang 7.0.1)",
-      76: "C++ (Clang 7.0.1)",
-      48: "C (GCC 7.4.0)",
-      52: "C++ (GCC 7.4.0)",
-      49: "C (GCC 8.3.0)",
-      53: "C++ (GCC 8.3.0)",
-      50: "C (GCC 9.2.0)",
-      54: "C++ (GCC 9.2.0)",
-      51: "C# (Mono 6.6.0.161)",
-      77: "COBOL (GnuCOBOL 2.2)",
-      55: "Common Lisp (SBCL 2.0.0)",
-      56: "D (DMD 2.089.1)",
-      57: "Elixir (1.9.4)",
-      58: "Erlang (OTP 22.2)",
-      44: "Executable",
-      87: "F# (.NET Core SDK 3.1.202)",
-      59: "Fortran (GFortran 9.2.0)",
-      60: "Go (1.13.5)",
-      88: "Groovy (3.0.3)",
-      61: "Haskell (GHC 8.8.1)",
-      62: "Java (OpenJDK 13.0.1)",
-      63: "JavaScript (Node.js 12.14.0)",
-      78: "Kotlin (1.3.70)",
-      64: "Lua (5.3.5)",
-      79: "Objective-C (Clang 7.0.1)",
-      65: "OCaml (4.09.0)",
-      66: "Octave (5.1.0)",
-      67: "Pascal (FPC 3.0.4)",
-      85: "Perl (5.28.1)",
-      68: "PHP (7.4.1)",
-      43: "Plain Text",
-      69: "Prolog (GNU Prolog 1.4.5)",
-      70: "Python (2.7.17)",
-      71: "Python (3.8.1)",
-      80: "R (4.0.0)",
-      72: "Ruby (2.7.0)",
-      73: "Rust (1.40.0)",
-      81: "Scala (2.13.2)",
-      82: "SQL (SQLite 3.27.2)",
-      83: "Swift (5.2.3)",
-      74: "TypeScript (3.7.4)",
-      84: "Visual Basic.Net (vbnc 0.0.0.5943)",
+      javascript: 63, // Node.js
+      python: 71, // Python 3
+      java: 62, // Java
+      cpp: 54, // C++
+      c: 50, // C
+      csharp: 51, // C#
+      go: 60, // Go
+      rust: 73, // Rust
+      ruby: 72, // Ruby
+      php: 68, // PHP
+      swift: 83, // Swift
+      kotlin: 78, // Kotlin
+      typescript: 74, // TypeScript
     };
 
-    return languageMap[languageId] || `Language ${languageId}`;
+    return languageMap[language.toLowerCase()] || 71; // Default to Python
+  }
+
+  /**
+   * Check submission status from Judge0
+   */
+  async checkSubmissionStatus(token) {
+    try {
+      const response = await axios.get(
+        `${this.judge0Url}/submissions/${token}`,
+        {
+          headers: { "Content-Type": "application/json" },
+          timeout: 5000,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Check submission status error:", error);
+      throw error;
+    }
   }
 }
 
-export default SubmissionService;
+export default new SubmissionService();

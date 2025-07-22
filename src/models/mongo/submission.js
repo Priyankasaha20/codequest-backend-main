@@ -167,11 +167,19 @@ const submissionSchema = new mongoose.Schema(
     },
 
     // Additional context
+    questionId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Question",
+      default: null,
+      index: true,
+      description: "Reference to the coding question/problem",
+    },
+
     problemId: {
       type: String,
       default: null,
       index: true,
-      description: "Associated problem identifier",
+      description: "Legacy problem identifier (for backward compatibility)",
     },
 
     contestId: {

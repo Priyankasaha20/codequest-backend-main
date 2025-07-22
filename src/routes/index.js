@@ -4,6 +4,7 @@ import profileRoutes from "./profile.js";
 import mediaRoutes from "./media.js";
 import quizRoutes from "./quiz.js";
 import judgeRoutes from "./judge.js";
+import questionRoutes from "./questions.js";
 
 const router = express.Router();
 
@@ -14,6 +15,8 @@ router.use("/profile", profileRoutes);
 router.use("/media", mediaRoutes);
 
 router.use("/quiz", quizRoutes);
+
+router.use("/questions", questionRoutes);
 
 router.use("/", judgeRoutes);
 

@@ -4,12 +4,18 @@ import { users } from "../models/postgres/auth.js";
 import { eq } from "drizzle-orm";
 import fs from "fs";
 import path from "path";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import { seedQuestions } from "./questionSeeder.js";
+
+// Load environment variables
+dotenv.config();
 
 const seedDatabase = async () => {
   try {
     console.log("🌱 Starting database seeding...");
 
-    // Read the question bank JSON file
+    // Load and parse the question bank
     const questionBankPath = path.join(
       process.cwd(),
       "assets",
@@ -19,7 +25,7 @@ const seedDatabase = async () => {
       fs.readFileSync(questionBankPath, "utf8")
     );
 
-    // Find or create a system user for seeding
+    // Find or create system user
     let [systemUser] = await db
       .select()
       .from(users)
@@ -37,6 +43,7 @@ const seedDatabase = async () => {
       console.log("✅ Created system user for seeding");
     }
 
+    // Seed quizzes and questions
     for (const [topic, questionsData] of Object.entries(questionBankData)) {
       console.log(`📚 Processing topic: ${topic}`);
 
@@ -45,22 +52,24 @@ const seedDatabase = async () => {
         .from(quizzes)
         .where(eq(quizzes.topic, topic));
 
-      let quiz;
       if (existingQuiz) {
-        console.log(`⚠️  Quiz for topic ${topic} already exists, skipping...`);
+        console.log(
+          `⚠️  Quiz for topic "${topic}" already exists. Skipping...`
+        );
         continue;
-      } else {
-        [quiz] = await db
-          .insert(quizzes)
-          .values({
-            title: `${topic} Quiz`,
-            description: `Comprehensive quiz covering ${topic} concepts`,
-            topic: topic,
-            createdBy: systemUser.id,
-          })
-          .returning();
-        console.log(`✅ Created quiz: ${quiz.title}`);
       }
+
+      const [quiz] = await db
+        .insert(quizzes)
+        .values({
+          title: `${topic} Quiz`,
+          description: `Comprehensive quiz covering ${topic} concepts`,
+          topic,
+          createdBy: systemUser.id,
+        })
+        .returning();
+
+      console.log(`✅ Created quiz: ${quiz.title}`);
 
       const validQuestions = questionsData.filter(
         (q) => q.question && q.options && q.answer
@@ -70,11 +79,11 @@ const seedDatabase = async () => {
         `📝 Found ${validQuestions.length} valid questions out of ${questionsData.length} total`
       );
 
-      const questionInserts = validQuestions.map((questionData) => ({
+      const questionInserts = validQuestions.map((q) => ({
         quizId: quiz.id,
-        question: questionData.question,
-        options: questionData.options,
-        answer: questionData.answer,
+        question: q.question,
+        options: q.options,
+        answer: q.answer,
       }));
 
       if (questionInserts.length > 0) {
@@ -85,7 +94,22 @@ const seedDatabase = async () => {
       }
     }
 
-    console.log("🎉 Database seeding completed successfully!");
+    // MongoDB Seeding
+    console.log("🌿 Connecting to MongoDB...");
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("✅ MongoDB connected");
+
+    console.log("📥 Seeding MongoDB questions...");
+    await seedQuestions();
+    console.log("🎉 MongoDB question seeding completed");
+
+    await mongoose.disconnect();
+    console.log("🔌 MongoDB connection closed");
+
+    console.log("✅🎉 Database seeding completed successfully!");
   } catch (error) {
     console.error("❌ Error seeding database:", error);
     process.exit(1);
