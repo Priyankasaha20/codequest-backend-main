@@ -8,7 +8,8 @@
     "dev": "nodemon src/server.js",
     "migrate:generate": "drizzle-kit generate --config drizzle.config.js",
     "migrate:push": "drizzle-kit push --config drizzle.config.js",
-    "seed": "node src/utils/seeder.js"
+    "seed": "node src/utils/seeder.js",
+    "cleanup:submissions": "node src/utils/cleanupSubmissions.js"
   },
   "author": "",
   "license": "ISC",
