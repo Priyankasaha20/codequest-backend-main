@@ -142,31 +142,11 @@ const questionSchema = new mongoose.Schema(
       description: "Whether the problem is active and visible to users",
     },
 
-    isVerified: {
-      type: Boolean,
-      default: false,
-      description: "Whether the problem has been verified and tested",
-    },
-
     // Statistics
     stats: {
       type: problemStatsSchema,
       default: {},
       description: "Problem submission statistics",
-    },
-
-    // Contest information (optional)
-    contestId: {
-      type: String,
-      default: null,
-      index: true,
-      description: "Associated contest identifier",
-    },
-
-    contestOrder: {
-      type: Number,
-      default: null,
-      description: "Order of problem within a contest",
     },
   },
   {
@@ -184,10 +164,6 @@ questionSchema.index({ isActive: 1, difficulty: 1 }); // Browse by difficulty
 questionSchema.index({ category: 1, isActive: 1 }); // Browse by category
 questionSchema.index({ tags: 1, isActive: 1 }); // Search by tags
 questionSchema.index({ "difficulty.level": 1, "stats.acceptanceRate": 1 }); // Sort by difficulty and acceptance
-
-// Contest-related indexes
-questionSchema.index({ contestId: 1, contestOrder: 1 }); // Contest problems
-questionSchema.index({ contestId: 1, isActive: 1 }); // Active contest problems
 
 // Performance indexes
 questionSchema.index({ createdAt: -1 }); // Recent problems
