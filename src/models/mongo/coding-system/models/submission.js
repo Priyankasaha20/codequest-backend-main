@@ -18,10 +18,7 @@ import {
   applyMiddleware,
 } from "../config/submissionConfig.js";
 
-/**
- * Main submission schema for Judge0 code execution submissions
- * Links to PostgreSQL user table and stores comprehensive execution data
- */
+
 const submissionSchema = new mongoose.Schema(
   {
     // Reference to PostgreSQL user ID
