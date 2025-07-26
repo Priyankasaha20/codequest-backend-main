@@ -1,4 +1,4 @@
-import Question from "../models/mongo/question.js";
+import { Question } from "../models/mongo/index.js";
 
 /**
  * Service class for handling coding questions/problems

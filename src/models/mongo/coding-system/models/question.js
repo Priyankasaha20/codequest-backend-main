@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
 // Import schema components
-import difficultySchema from "./schemas/difficultySchema.js";
-import problemTestCaseSchema from "./schemas/problemTestCaseSchema.js";
-import exampleSchema from "./schemas/exampleSchema.js";
-import constraintsSchema from "./schemas/constraintsSchema.js";
-import problemStatsSchema from "./schemas/problemStatsSchema.js";
+import difficultySchema from "../schemas/question/difficultySchema.js";
+import problemTestCaseSchema from "../schemas/question/problemTestCaseSchema.js";
+import exampleSchema from "../schemas/question/exampleSchema.js";
+import constraintsSchema from "../schemas/question/constraintsSchema.js";
+import problemStatsSchema from "../schemas/question/problemStatsSchema.js";
 
 /**
  * Question/Problem model for LeetCode-style coding problems
@@ -13,7 +13,6 @@ import problemStatsSchema from "./schemas/problemStatsSchema.js";
  */
 const questionSchema = new mongoose.Schema(
   {
-    // Basic information
     title: {
       type: String,
       required: true,

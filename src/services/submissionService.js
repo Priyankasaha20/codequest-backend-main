@@ -1,4 +1,4 @@
-import Submission from "../models/mongo/submission.js";
+import { Submission } from "../models/mongo/index.js";
 import QuestionService from "./questionService.js";
 import axios from "axios";
 

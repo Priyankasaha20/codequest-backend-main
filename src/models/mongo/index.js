@@ -1,20 +1,20 @@
-// Main models
-import Submission from "./submission.js";
-import Question from "./question.js";
+// Import coding system components
+import codingSystem, {
+  Question,
+  Submission,
+  statusSchema,
+  languageSchema,
+  testCaseSchema,
+  judge0DataSchema,
+  batchSummarySchema,
+  difficultySchema,
+  problemTestCaseSchema,
+  exampleSchema,
+  constraintsSchema,
+  problemStatsSchema,
+} from "./coding-system/index.js";
 
-// Schema components (for reuse in other models)
-import statusSchema from "./schemas/statusSchema.js";
-import languageSchema from "./schemas/languageSchema.js";
-import testCaseSchema from "./schemas/testCaseSchema.js";
-import judge0DataSchema from "./schemas/judge0DataSchema.js";
-import batchSummarySchema from "./schemas/batchSummarySchema.js";
-import difficultySchema from "./schemas/difficultySchema.js";
-import problemTestCaseSchema from "./schemas/problemTestCaseSchema.js";
-import exampleSchema from "./schemas/exampleSchema.js";
-import constraintsSchema from "./schemas/constraintsSchema.js";
-import problemStatsSchema from "./schemas/problemStatsSchema.js";
-
-// Named exports
+// Named exports for backward compatibility
 export {
   // Main models
   Submission,
@@ -30,20 +30,28 @@ export {
   exampleSchema,
   constraintsSchema,
   problemStatsSchema,
+  // Coding system as a whole
+  codingSystem,
 };
 
-// Default export for convenience
+// Default export with organized structure
 export default {
-  // Main models
+  // Coding system (questions and submissions)
+  codingSystem,
+
+  // Direct access to main models for backward compatibility
   Submission,
   Question,
+
   // Schema components for building other models
   schemas: {
+    // Submission schemas
     statusSchema,
     languageSchema,
     testCaseSchema,
     judge0DataSchema,
     batchSummarySchema,
+    // Question schemas
     difficultySchema,
     problemTestCaseSchema,
     exampleSchema,

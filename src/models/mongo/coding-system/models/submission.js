@@ -1,22 +1,22 @@
 import mongoose from "mongoose";
 
 // Import modular schema components
-import statusSchema from "./schemas/statusSchema.js";
-import languageSchema from "./schemas/languageSchema.js";
-import testCaseSchema from "./schemas/testCaseSchema.js";
-import judge0DataSchema from "./schemas/judge0DataSchema.js";
-import batchSummarySchema from "./schemas/batchSummarySchema.js";
+import statusSchema from "../schemas/submission/statusSchema.js";
+import languageSchema from "../schemas/submission/languageSchema.js";
+import testCaseSchema from "../schemas/submission/testCaseSchema.js";
+import judge0DataSchema from "../schemas/submission/judge0DataSchema.js";
+import batchSummarySchema from "../schemas/submission/batchSummarySchema.js";
 
 // Import methods
-import staticMethods from "./methods/staticMethods.js";
-import instanceMethods from "./methods/instanceMethods.js";
+import staticMethods from "../methods/staticMethods.js";
+import instanceMethods from "../methods/instanceMethods.js";
 
 // Import configuration
 import {
   applyIndexes,
   applyVirtuals,
   applyMiddleware,
-} from "./config/submissionConfig.js";
+} from "../config/submissionConfig.js";
 
 /**
  * Main submission schema for Judge0 code execution submissions

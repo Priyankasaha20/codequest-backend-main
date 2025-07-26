@@ -1,24 +1,17 @@
 /**
- * Database indexes for the Submission model
- * Optimized for common query patterns
- */
-
-/**
  * Apply indexes to the submission schema
  * @param {mongoose.Schema} schema - The submission schema
  */
 export function applyIndexes(schema) {
   // Primary indexes for common queries
   schema.index({ userId: 1, createdAt: -1 }); // User submissions by date
-  schema.index({ tokens: 1 }); // Quick token lookups
   schema.index({ "status.description": 1 }); // Filter by status
   schema.index({ verdict: 1 }); // Filter by verdict
   schema.index({ isCompleted: 1, createdAt: -1 }); // Completed submissions
 
   // Problem and contest specific indexes
-  schema.index({ problemId: 1, userId: 1 }); // User submissions for specific problem
-  schema.index({ contestId: 1, userId: 1 }); // User submissions for specific contest
-  schema.index({ problemId: 1, verdict: 1, executionTime: 1 }); // Leaderboard queries
+  schema.index({ problemId: 1, userId: 1 });
+  schema.index({ problemId: 1, verdict: 1, executionTime: 1 });
 
   // Performance optimization indexes
   schema.index({ userId: 1, verdict: 1 }); // User statistics
